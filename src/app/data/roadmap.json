@@ -1,0 +1,306 @@
+{
+  "phases": [
+    {
+      "id": "phase-1",
+      "title": "Phase 1: Java Core",
+      "duration": "Weeks 1-8",
+      "weeks": [
+        {
+          "id": "week-1",
+          "title": "Week 1 — Syntax & Fundamentals",
+          "tasks": [
+            { "id": "t-1-1", "description": "JDK setup, IntelliJ IDEA, javac / java basics", "type": "learning" },
+            { "id": "t-1-2", "description": "Variables, primitive types vs wrapper classes, type casting", "type": "learning" },
+            { "id": "t-1-3", "description": "Operators, control flow (if/switch/loops)", "type": "learning" },
+            { "id": "t-1-4", "description": "Arrays (1D, 2D), String vs StringBuilder vs StringBuffer", "type": "learning" },
+            { "id": "t-1-5", "description": "Methods, method overloading, static vs instance context", "type": "learning" },
+            { "id": "p-1-1", "description": "15 Practice problems (FizzBuzz, String manipulation, Arrays, Math)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "week-2",
+          "title": "Week 2 — OOP (the real core of Java interviews)",
+          "tasks": [
+            { "id": "t-2-1", "description": "Classes, objects, constructors, this", "type": "learning" },
+            { "id": "t-2-2", "description": "Encapsulation, Inheritance, Polymorphism, Abstraction", "type": "learning" },
+            { "id": "t-2-3", "description": "abstract classes vs interface (default/static methods)", "type": "learning" },
+            { "id": "t-2-4", "description": "super, method overriding, instanceof, upcasting/downcasting", "type": "learning" },
+            { "id": "t-2-5", "description": "Access modifiers, packages", "type": "learning" },
+            { "id": "p-2-1", "description": "15 Practice problems (Shape hierarchy, OOP paradigms, Design patterns)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "week-3",
+          "title": "Checkpoint Project — Week 3: Multi-Level Parking System",
+          "tasks": [
+            { "id": "cp-3-1", "description": "Model ParkingLot, ParkingFloor, ParkingSpot (compact/large/handicapped), Vehicle (Car/Bike/Truck via inheritance), and a Ticket system that assigns/frees spots. Push it to GitHub with a proper README.", "type": "project" }
+          ]
+        },
+        {
+          "id": "week-4",
+          "title": "Week 4 — Java Standard Library Essentials",
+          "tasks": [
+            { "id": "t-4-1", "description": "Collections Framework: List, Set, Map, Queue + implementations (ArrayList, LinkedList, HashMap, TreeMap, HashSet)", "type": "learning" },
+            { "id": "t-4-2", "description": "Iterators, Comparable vs Comparator", "type": "learning" },
+            { "id": "t-4-3", "description": "Generics (<T>, bounded types, wildcards)", "type": "learning" },
+            { "id": "t-4-4", "description": "Exception handling: checked vs unchecked, custom exceptions, try-with-resources", "type": "learning" },
+            { "id": "t-4-5", "description": "equals(), hashCode(), toString() contracts", "type": "learning" },
+            { "id": "p-4-1", "description": "16 Practice problems (first LeetCode set, Hashing, Custom Data Structures)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "week-5",
+          "title": "Week 5 — Modern Java & Concurrency Basics",
+          "tasks": [
+            { "id": "t-5-1", "description": "Java 8+ features: Lambda expressions, Streams API, Optional, method references", "type": "learning" },
+            { "id": "t-5-2", "description": "Functional interfaces (Function, Predicate, Supplier, Consumer)", "type": "learning" },
+            { "id": "t-5-3", "description": "Multithreading basics: Thread, Runnable, synchronized, ExecutorService", "type": "learning" },
+            { "id": "t-5-4", "description": "Java Memory Model basics (Stack vs Heap, garbage collection overview)", "type": "learning" },
+            { "id": "p-5-1", "description": "14 Practice problems (Streams, Multi-threading, Concurrent structures)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "week-6",
+          "title": "Checkpoint Project — Week 6: Real-Time Weather Application (console)",
+          "tasks": [
+            { "id": "cp-6-1", "description": "Call a free weather API (e.g., OpenWeatherMap) using Java's HttpClient, parse JSON, store history, auto-refresh every N minutes using threads, and use Streams for average temp.", "type": "project" }
+          ]
+        },
+        {
+          "id": "week-7",
+          "title": "Week 7 — Raw JDBC (before you meet Spring Data JPA)",
+          "tasks": [
+            { "id": "t-7-1", "description": "Basics of relational databases and SQL refresher", "type": "learning" },
+            { "id": "t-7-2", "description": "JDBC drivers, DriverManager, Connection", "type": "learning" },
+            { "id": "t-7-3", "description": "Statement vs PreparedStatement (and SQL injection prevention)", "type": "learning" },
+            { "id": "t-7-4", "description": "Reading results with ResultSet", "type": "learning" },
+            { "id": "t-7-5", "description": "Manual transactions: commit(), rollback(), setAutoCommit(false)", "type": "learning" },
+            { "id": "t-7-6", "description": "Connection pooling concepts", "type": "learning" },
+            { "id": "p-7-1", "description": "8 Practice problems (JDBC CRUD, transactions, batch inserts)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "week-8",
+          "title": "Checkpoint Project — Week 8: Garage Management System",
+          "tasks": [
+            { "id": "cp-8-1", "description": "A console app (JDBC-backed, real DB) managing vehicles, service bays, mechanics, and service records. Practice manual relationships and transactions.", "type": "project" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "title": "Phase 2: DSA",
+      "duration": "Weeks 9-20",
+      "weeks": [
+        {
+          "id": "weeks-9-10",
+          "title": "Weeks 9-10 — Foundations (Arrays, Strings, Two-Pointer, Sliding Window, Sorting)",
+          "tasks": [
+            { "id": "p-9-1", "description": "19 LeetCode problems (Two Sum, Stock Buy/Sell, Array manipulation, Pointers, Sliding Windows)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "weeks-11-12",
+          "title": "Weeks 11-12 — LinkedList, Stack, Queue, HashMap/HashSet Deep Dive",
+          "tasks": [
+            { "id": "p-11-1", "description": "18 LeetCode problems (Linked List manipulations, Stacks/Queues, HashMaps, LRU Cache)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "weeks-13-14",
+          "title": "Weeks 13-14 — Trees & Graphs",
+          "tasks": [
+            { "id": "p-13-1", "description": "20 LeetCode problems (Binary Trees, BSTs, Traversals, Tries, Graphs, Union-Find)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "weeks-15-17",
+          "title": "Weeks 15-17 — Dynamic Programming & Greedy",
+          "tasks": [
+            { "id": "p-15-1", "description": "19 LeetCode problems (1D/2D DP, Subsequences, Greedy patterns)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "weeks-18-20",
+          "title": "Weeks 18-20 — Practice, Mixed Review & Mock Interviews",
+          "tasks": [
+            { "id": "p-18-1", "description": "20 mixed medium/hard problems, timed practice 30-45 min each (Graphs, DFS/BFS, Heaps, Backtracking)", "type": "practice" },
+            { "id": "p-18-2", "description": "Conduct mock interviews (with a friend, Pramp, or similar)", "type": "learning" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "title": "Phase 3: Spring Boot",
+      "duration": "Weeks 21-33",
+      "weeks": [
+        {
+          "id": "weeks-21-22",
+          "title": "Weeks 21-22 — Spring Core & Boot Basics",
+          "tasks": [
+            { "id": "t-21-1", "description": "Dependency Injection, IoC container, Beans, scopes", "type": "learning" },
+            { "id": "t-21-2", "description": "@Component / @Service / @Repository, autowiring", "type": "learning" },
+            { "id": "t-21-3", "description": "Spring Boot project structure, configuration, starters", "type": "learning" },
+            { "id": "t-21-4", "description": "Lombok, H2 database basics", "type": "learning" },
+            { "id": "t-21-5", "description": "REST controllers & basic CRUD API creation", "type": "learning" },
+            { "id": "p-21-1", "description": "14 Build tasks (Spring Initializr, Controllers, Repositories, Postman testing)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "week-23",
+          "title": "Checkpoint Project — Week 23: Mini REST API (BookMyShow-lite)",
+          "tasks": [
+            { "id": "cp-23-1", "description": "Build a basic movie/show booking API on H2 focusing on REST and Spring Boot layer fluency.", "type": "project" }
+          ]
+        },
+        {
+          "id": "weeks-24-25",
+          "title": "Weeks 24-25 — Data Layer",
+          "tasks": [
+            { "id": "t-24-1", "description": "Spring Data JPA + Hibernate, Entity relationships", "type": "learning" },
+            { "id": "t-24-2", "description": "Repositories, custom queries, pagination", "type": "learning" },
+            { "id": "t-24-3", "description": "Database migrations (Flyway/Liquibase), Connection pooling", "type": "learning" },
+            { "id": "t-24-4", "description": "DTO mapping (MapStruct), Swagger/OpenAPI, Spring Boot Actuator", "type": "learning" },
+            { "id": "p-24-1", "description": "16 Build tasks (PostgreSQL setup, JPA mapping, migrations, optimizations)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "weeks-26-27",
+          "title": "Weeks 26-27 — Security & Validation",
+          "tasks": [
+            { "id": "t-26-1", "description": "Spring Security (auth/authz, filter chains), JWT implementation", "type": "learning" },
+            { "id": "t-26-2", "description": "Role-based access control (@PreAuthorize)", "type": "learning" },
+            { "id": "t-26-3", "description": "Bean Validation (@Valid, custom validators), Global exception handling", "type": "learning" },
+            { "id": "t-26-4", "description": "Google OAuth login", "type": "learning" },
+            { "id": "p-26-1", "description": "15 Build tasks (Security Config, JWT flow, Validation, OAuth)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "week-28",
+          "title": "Checkpoint Project — Week 28: Registration & Login System",
+          "tasks": [
+            { "id": "cp-28-1", "description": "Standalone auth module: registration, login (password + OAuth), JWT issuance, RBAC, password-reset flow.", "type": "project" }
+          ]
+        },
+        {
+          "id": "week-29",
+          "title": "Week 29 — Testing",
+          "tasks": [
+            { "id": "t-29-1", "description": "JUnit 5 + Mockito for unit tests", "type": "learning" },
+            { "id": "t-29-2", "description": "Integration tests (@SpringBootTest, @WebMvcTest, @DataJpaTest)", "type": "learning" },
+            { "id": "t-29-3", "description": "Testcontainers for DB integration tests", "type": "learning" },
+            { "id": "p-29-1", "description": "10 Build tasks (Mocking, Web tests, Testcontainers, CI setup, JaCoCo)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "week-30",
+          "title": "Week 30 — AOP (Aspect-Oriented Programming)",
+          "tasks": [
+            { "id": "t-30-1", "description": "Cross-cutting concerns, Core AOP vocabulary", "type": "learning" },
+            { "id": "t-30-2", "description": "Advice types: @Before, @After, @AfterReturning, @AfterThrowing, @Around", "type": "learning" },
+            { "id": "p-30-1", "description": "6 Practice problems (Logging aspects, Execution time metrics, Retries)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "weeks-31-33",
+          "title": "Weeks 31-33 — Milestone Project: Spring Boot ShopiOne Rebuild",
+          "tasks": [
+            { "id": "cp-31-1", "description": "Rebuild scaled-down ShopiOne: multi-role auth, JWT, category tree with cycle detection, Redis caching layer.", "type": "project" },
+            { "id": "cp-31-2", "description": "10 Build tasks (Skeleton setup, Auth, Caching, Logging, Error handling, Deployment, README)", "type": "practice" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "title": "Phase 4: Advanced Topics",
+      "duration": "Weeks 34-46",
+      "weeks": [
+        {
+          "id": "week-34",
+          "title": "Week 34 — Docker & Containerization",
+          "tasks": [
+            { "id": "t-34-1", "description": "Images vs containers, Dockerfile basics, Multi-stage builds", "type": "learning" },
+            { "id": "t-34-2", "description": "Docker Compose for multi-container local dev", "type": "learning" },
+            { "id": "p-34-1", "description": "7 Build tasks (Dockerizing Spring Boot app, Compose setup for DB/Redis)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "week-35",
+          "title": "Week 35 — CI/CD with GitHub Actions",
+          "tasks": [
+            { "id": "t-35-1", "description": "CI/CD concepts, GitHub Actions workflow syntax", "type": "learning" },
+            { "id": "t-35-2", "description": "Running tests in CI, Building/pushing Docker images, Deploying", "type": "learning" },
+            { "id": "p-35-1", "description": "6 Build tasks (CI workflows, Registry pushes, Deploy steps)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "weeks-36-37",
+          "title": "Weeks 36-37 — Messaging: Kafka & RabbitMQ",
+          "tasks": [
+            { "id": "t-36-1", "description": "Async/event-driven systems (decoupling, buffering)", "type": "learning" },
+            { "id": "t-36-2", "description": "Kafka core concepts & Spring Kafka (@KafkaListener)", "type": "learning" },
+            { "id": "t-36-3", "description": "RabbitMQ core concepts & Spring AMQP", "type": "learning" },
+            { "id": "t-36-4", "description": "Delivery guarantees compared", "type": "learning" },
+            { "id": "p-36-1", "description": "9 Build tasks (Kafka/RabbitMQ local setup, Event production/consumption, Idempotency)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "week-38",
+          "title": "Checkpoint Project — Week 38: Event-Driven Order Processing Service",
+          "tasks": [
+            { "id": "cp-38-1", "description": "Service accepting REST orders, publishing to Kafka, and an idempotent separate consumer handling updates. Dockerized.", "type": "project" }
+          ]
+        },
+        {
+          "id": "weeks-39-40",
+          "title": "Weeks 39-40 — Kubernetes",
+          "tasks": [
+            { "id": "t-39-1", "description": "Core objects: Pod, Deployment, Service, ConfigMap, Secret, Namespace", "type": "learning" },
+            { "id": "t-39-2", "description": "Local cluster setup (minikube/kind)", "type": "learning" },
+            { "id": "t-39-3", "description": "Rolling updates, probes, resource limits, manual scaling", "type": "learning" },
+            { "id": "p-39-1", "description": "8 Build tasks (K8s manifests, ConfigMaps/Secrets, Probes, Deployments)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "weeks-41-42",
+          "title": "Weeks 41-42 — Spring Cloud Microservices",
+          "tasks": [
+            { "id": "t-41-1", "description": "Monolith splitting, bounded contexts", "type": "learning" },
+            { "id": "t-41-2", "description": "Service discovery (Eureka), API gateway routing", "type": "learning" },
+            { "id": "t-41-3", "description": "Inter-service calls (OpenFeign), Centralized config, Resilience4j", "type": "learning" },
+            { "id": "p-41-1", "description": "10 Build tasks (Splitting monolith, Eureka, Gateway, OpenFeign, Config Server, Circuit Breakers)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "week-43",
+          "title": "Checkpoint Project — Week 43: E-commerce Microservices (ShopiOne rebuild, decomposed)",
+          "tasks": [
+            { "id": "cp-43-1", "description": "Split Week 31-33 monolith into auth-service, catalog-service, order-service. Wire via Eureka/Gateway, async via Kafka, deploy to K8s.", "type": "project" }
+          ]
+        },
+        {
+          "id": "week-44",
+          "title": "Week 44 — Spring AI Integration",
+          "tasks": [
+            { "id": "t-44-1", "description": "Spring AI abstractions, Calling compatible APIs", "type": "learning" },
+            { "id": "t-44-2", "description": "Streaming responses, prompt engineering in backend", "type": "learning" },
+            { "id": "p-44-1", "description": "5 Build tasks (AI product descriptions, Structured output, Rate limiting API calls)", "type": "practice" }
+          ]
+        },
+        {
+          "id": "weeks-45-46",
+          "title": "Weeks 45-46 — Remaining Production-Readiness Topics",
+          "tasks": [
+            { "id": "t-45-1", "description": "Rate limiting, idempotency keys, API versioning, cursor-based pagination", "type": "learning" },
+            { "id": "t-45-2", "description": "Observability: structured logging, Micrometer + Prometheus, Grafana, distributed tracing", "type": "learning" },
+            { "id": "t-45-3", "description": "Differentiators: WebSockets/STOMP, GraphQL, WebFlux", "type": "learning" },
+            { "id": "p-45-1", "description": "10 Build tasks (Idempotency endpoints, Observability setup, Differentiator feature)", "type": "practice" }
+          ]
+        }
+      ]
+    }
+  ]
+}

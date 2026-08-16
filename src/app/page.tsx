@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import roadmapData from "./data/roadmap.json";
 
 type Task = {
@@ -39,34 +40,54 @@ export default function TrackerDashboard() {
   const [openWeekInterview, setOpenWeekInterview] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    const saved = localStorage.getItem("java-roadmap-progress");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) {
-          // Migration from old array format
-          const migrated: Record<string, string> = {};
-          parsed.forEach((id: string) => {
-            migrated[id] = new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
-          });
-          setCompletedTasks(migrated);
-        } else {
-          setCompletedTasks(parsed);
+    fetch('/api/data')
+      .then(res => res.json())
+      .then(data => {
+        let loadedProgress = false;
+        let loadedNotes = false;
+
+        if (data.progress && Object.keys(data.progress).length > 0) {
+          setCompletedTasks(data.progress);
+          loadedProgress = true;
         }
-      } catch (e) {
-        console.error("Failed to parse progress", e);
-      }
-    }
-    const savedNotes = localStorage.getItem("java-roadmap-notes");
-    if (savedNotes) {
-      try {
-        setNotesData(JSON.parse(savedNotes));
-      } catch (e) {
-        console.error("Failed to parse notes", e);
-      }
-    }
-    setMounted(true);
+        
+        if (data.notes && (Object.keys(data.notes.tasks || {}).length > 0 || Object.keys(data.notes.weeks || {}).length > 0)) {
+          setNotesData(data.notes);
+          loadedNotes = true;
+        }
+
+        if (!loadedProgress) {
+          const savedProgress = localStorage.getItem("java-roadmap-progress");
+          if (savedProgress) {
+            try {
+              const parsed = JSON.parse(savedProgress);
+              if (!Array.isArray(parsed)) setCompletedTasks(parsed);
+            } catch (e) { console.error(e) }
+          }
+        }
+
+        if (!loadedNotes) {
+          const savedNotes = localStorage.getItem("java-roadmap-notes");
+          if (savedNotes) {
+            try { setNotesData(JSON.parse(savedNotes)); } catch (e) { console.error(e) }
+          }
+        }
+        setMounted(true);
+      })
+      .catch(() => {
+        setMounted(true);
+      });
   }, []);
+
+  const syncToServer = async (progress: any, notes: any) => {
+    try {
+      await fetch('/api/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ progress, notes })
+      });
+    } catch (e) { console.error("Failed to sync data", e); }
+  };
 
   const toggleTask = (taskId: string) => {
     setCompletedTasks((prev) => {
@@ -77,6 +98,7 @@ export default function TrackerDashboard() {
         next[taskId] = new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
       }
       localStorage.setItem("java-roadmap-progress", JSON.stringify(next));
+      syncToServer(next, notesData);
       return next;
     });
   };
@@ -103,6 +125,21 @@ export default function TrackerDashboard() {
     setNotesData(prev => {
       const next = { ...prev, [type]: { ...prev[type], [id]: value } };
       localStorage.setItem("java-roadmap-notes", JSON.stringify(next));
+      syncToServer(completedTasks, next);
+      return next;
+    });
+  };
+
+  const toggleSetAndExpandWeek = (setter: React.Dispatch<React.SetStateAction<Set<string>>>, weekId: string) => {
+    setter(prev => {
+      const next = new Set(prev);
+      if (next.has(weekId)) next.delete(weekId);
+      else next.add(weekId);
+      return next;
+    });
+    setCollapsedWeeks(prev => {
+      const next = new Set(prev);
+      next.delete(weekId);
       return next;
     });
   };
@@ -121,7 +158,12 @@ export default function TrackerDashboard() {
   return (
     <div>
       <header className="mb-8">
-        <h1 className="text-3xl mb-2">Java Backend Developer Roadmap</h1>
+        <div className="flex justify-between items-start mb-2 gap-4">
+          <h1 className="text-3xl m-0">Java Backend Developer Roadmap</h1>
+          <Link href="/interview" className="action-btn action-btn-interview active whitespace-nowrap" style={{ padding: '0.5rem 1rem', textDecoration: 'none', borderRadius: '8px' }}>
+            Interview Qs &rarr;
+          </Link>
+        </div>
         <p className="text-muted text-lg mb-6">9-month paced curriculum tracker</p>
         
         <div className="card">
@@ -138,7 +180,7 @@ export default function TrackerDashboard() {
         </div>
       </header>
 
-      <div className="phases-scroll mb-8">
+      <div className="phases-scroll mb-8 animate-in">
         {roadmapData.phases.map((phase) => {
           const phaseTasks = phase.weeks.reduce((acc, w) => acc + w.tasks.length, 0);
           const phaseCompleted = phase.weeks.reduce((acc, w) => 
@@ -171,7 +213,7 @@ export default function TrackerDashboard() {
         })}
       </div>
 
-      <section>
+      <section className="animate-in" style={{ animationDelay: '0.1s' }}>
         <h2 className="text-2xl mb-6">{currentPhaseData.title} Timeline</h2>
         <div className="flex flex-col gap-6">
           {currentPhaseData.weeks.map((week) => {
@@ -200,13 +242,13 @@ export default function TrackerDashboard() {
                     <div className="flex items-center gap-2" onClick={e => e.stopPropagation()}>
                       <button 
                         className={`action-btn action-btn-note ${openWeekNotes.has(week.id) ? 'active' : ''}`}
-                        onClick={() => toggleSet(setOpenWeekNotes, week.id)}
+                        onClick={() => toggleSetAndExpandWeek(setOpenWeekNotes, week.id)}
                       >
                         Notes
                       </button>
                       <button 
                         className={`action-btn action-btn-interview ${openWeekInterview.has(week.id) ? 'active' : ''}`}
-                        onClick={() => toggleSet(setOpenWeekInterview, week.id)}
+                        onClick={() => toggleSetAndExpandWeek(setOpenWeekInterview, week.id)}
                       >
                         Interview Qs
                       </button>
@@ -218,10 +260,10 @@ export default function TrackerDashboard() {
                 </div>
                 
                 {!isCollapsed && (
-                  <div className="flex flex-col mb-4">
+                  <div className="flex flex-col mb-4 animate-in">
                     {openWeekNotes.has(week.id) && (
                       <textarea 
-                        className="textarea-input textarea-note mb-3" 
+                        className="textarea-input textarea-note textarea-large mb-3" 
                         placeholder="Add general notes for this week..."
                         value={notesData.weeks[week.id] || ''}
                         onChange={(e) => updateNote('weeks', week.id, e.target.value)}
@@ -229,7 +271,7 @@ export default function TrackerDashboard() {
                     )}
                     {openWeekInterview.has(week.id) && (
                       <textarea 
-                        className="textarea-input textarea-interview mb-3" 
+                        className="textarea-input textarea-interview textarea-large mb-3" 
                         placeholder="Add interview questions or prep notes for this week..."
                         value={notesData.interview[week.id] || ''}
                         onChange={(e) => updateNote('interview', week.id, e.target.value)}
@@ -239,16 +281,17 @@ export default function TrackerDashboard() {
                 )}
 
                 {!isCollapsed && (
-                  <div className="flex flex-col gap-3">
+                  <div className="flex flex-col gap-3 animate-in" style={{ animationDelay: '0.05s' }}>
                     {week.tasks.map((task) => {
                       const isDone = !!completedTasks[task.id];
                       return (
-                        <label key={task.id} className={`checkbox-wrapper ${isDone ? 'completed' : ''}`} style={{ flexWrap: 'wrap' }}>
+                        <div key={task.id} className={`checkbox-wrapper ${isDone ? 'completed' : ''}`} style={{ flexWrap: 'wrap' }}>
                           <input 
                             type="checkbox" 
                             className="checkbox-input"
                             checked={isDone}
                             onChange={() => toggleTask(task.id)}
+                            style={{ cursor: 'pointer' }}
                           />
                         <div className="flex flex-col gap-1.5 pt-0.5" style={{ flex: 1, minWidth: '0' }}>
                           <span className={isDone ? 'text-muted' : ''}>
@@ -274,15 +317,15 @@ export default function TrackerDashboard() {
                           </div>
                           {openTaskNotes.has(task.id) && (
                             <textarea 
-                              className="textarea-input textarea-note"
-                              placeholder="Add a note for this topic..."
+                              className="textarea-input textarea-note textarea-large mt-3"
+                              placeholder="Add a detailed note for this topic..."
                               value={notesData.tasks[task.id] || ''}
                               onClick={(e) => e.preventDefault()}
                               onChange={(e) => updateNote('tasks', task.id, e.target.value)}
                             />
                           )}
                         </div>
-                      </label>
+                      </div>
                     );
                   })}
                 </div>

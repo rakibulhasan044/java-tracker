@@ -46,6 +46,10 @@ export default function TrackerDashboard() {
     new Set(),
   );
 
+  const [dashboardNoteInputs, setDashboardNoteInputs] = useState<Record<string, {title: string, content: string}>>({});
+  const [dashboardQaInputs, setDashboardQaInputs] = useState<Record<string, {q: string, a: string}>>({});
+  const [dashboardTaskInputs, setDashboardTaskInputs] = useState<Record<string, string>>({});
+
   useEffect(() => {
     fetch("/api/data")
       .then((res) => res.json())
@@ -362,24 +366,84 @@ export default function TrackerDashboard() {
                 {!isCollapsed && (
                   <div className="flex flex-col mb-4 animate-in">
                     {openWeekNotes.has(week.id) && (
-                      <textarea
-                        className="textarea-input textarea-note textarea-large mb-3"
-                        placeholder="Add general notes for this week..."
-                        value={notesData.weeks[week.id] || ""}
-                        onChange={(e) =>
-                          updateNote("weeks", week.id, e.target.value)
-                        }
-                      />
+                      <div className="p-4 rounded-lg bg-[var(--bg-note)] border border-[var(--border-note)] mb-3">
+                        <input 
+                          placeholder="Note Title (Optional)" 
+                          className="textarea-input mb-3" 
+                          style={{ minHeight: 'auto', padding: '0.6rem 0.75rem', fontWeight: 600 }}
+                          value={dashboardNoteInputs[week.id]?.title || ""}
+                          onChange={e => setDashboardNoteInputs(p => ({...p, [week.id]: {...p[week.id], title: e.target.value}}))}
+                        />
+                        <textarea
+                          placeholder="Write your note here... (Markdown supported! Try # Heading or **bold**)"
+                          className="textarea-input textarea-note"
+                          style={{ minHeight: '120px' }}
+                          value={dashboardNoteInputs[week.id]?.content || ""}
+                          onChange={e => setDashboardNoteInputs(p => ({...p, [week.id]: {...p[week.id], content: e.target.value}}))}
+                        />
+                        <div className="flex mt-3">
+                          <button 
+                            className="action-btn action-btn-note active font-semibold" 
+                            style={{ padding: '0.5rem 1rem' }}
+                            onClick={() => {
+                               const note = dashboardNoteInputs[week.id];
+                               if (!note?.content?.trim()) return;
+                               const noteText = note.title?.trim() ? `**${note.title.trim()}**\n${note.content.trim()}` : note.content.trim();
+                               const currentText = notesData.weeks[week.id] || '';
+                               const separator = currentText.trim() ? '\n\n---\n\n' : '';
+                               updateNote("weeks", week.id, currentText + separator + noteText);
+                               setDashboardNoteInputs(p => ({...p, [week.id]: {title: "", content: ""}}));
+                            }}>
+                            Save Note
+                          </button>
+                          <Link href="/notes" className="action-btn ml-3" style={{ padding: '0.5rem 1rem' }}>Manage Saved Notes →</Link>
+                        </div>
+                        {notesData.weeks[week.id] && (
+                          <div className="mt-3 text-sm text-[var(--color-note)]">
+                            <span className="font-semibold">✓</span> You have saved notes for this week.
+                          </div>
+                        )}
+                      </div>
                     )}
                     {openWeekInterview.has(week.id) && (
-                      <textarea
-                        className="textarea-input textarea-interview textarea-large mb-3"
-                        placeholder="Add interview questions or prep notes for this week..."
-                        value={notesData.interview[week.id] || ""}
-                        onChange={(e) =>
-                          updateNote("interview", week.id, e.target.value)
-                        }
-                      />
+                      <div className="p-4 rounded-lg bg-[var(--bg-interview)] border border-[var(--border-interview)] mb-3">
+                        <input 
+                          placeholder="Question" 
+                          className="textarea-input mb-3" 
+                          style={{ minHeight: 'auto', padding: '0.6rem 0.75rem', fontWeight: 600 }}
+                          value={dashboardQaInputs[week.id]?.q || ""}
+                          onChange={e => setDashboardQaInputs(p => ({...p, [week.id]: {...p[week.id], q: e.target.value}}))}
+                        />
+                        <textarea
+                          placeholder="Answer... (Markdown supported! Try # Heading or **bold**)"
+                          className="textarea-input textarea-interview"
+                          style={{ minHeight: '120px' }}
+                          value={dashboardQaInputs[week.id]?.a || ""}
+                          onChange={e => setDashboardQaInputs(p => ({...p, [week.id]: {...p[week.id], a: e.target.value}}))}
+                        />
+                        <div className="flex mt-3">
+                          <button 
+                            className="action-btn action-btn-interview active font-semibold" 
+                            style={{ padding: '0.5rem 1rem' }}
+                            onClick={() => {
+                               const qa = dashboardQaInputs[week.id];
+                               if (!qa?.q?.trim() || !qa?.a?.trim()) return;
+                               const qaText = `**Q: ${qa.q.trim()}**\n${qa.a.trim()}`;
+                               const currentText = notesData.interview[week.id] || '';
+                               const separator = currentText.trim() ? '\n\n' : '';
+                               updateNote("interview", week.id, currentText + separator + qaText);
+                               setDashboardQaInputs(p => ({...p, [week.id]: {q: "", a: ""}}));
+                            }}>
+                            Save Q&A
+                          </button>
+                          <Link href="/interview" className="action-btn ml-3" style={{ padding: '0.5rem 1rem' }}>Manage Q&A →</Link>
+                        </div>
+                        {notesData.interview[week.id] && (
+                          <div className="mt-3 text-sm text-[var(--color-interview)]">
+                            <span className="font-semibold">✓</span> You have saved questions for this week.
+                          </div>
+                        )}
+                      </div>
                     )}
                   </div>
                 )}
@@ -435,16 +499,35 @@ export default function TrackerDashboard() {
                               </button>
                             </div>
                             {openTaskNotes.has(task.id) && (
+                            <div className="p-4 rounded-lg bg-[var(--bg-note)] border border-[var(--border-note)] mt-3">
                               <textarea
-                                className="textarea-input textarea-note textarea-large mt-3"
-                                placeholder="Add a detailed note for this topic..."
-                                value={notesData.tasks[task.id] || ""}
-                                onClick={(e) => e.preventDefault()}
-                                onChange={(e) =>
-                                  updateNote("tasks", task.id, e.target.value)
-                                }
+                                placeholder="Write your note for this topic here... (Markdown supported!)"
+                                className="textarea-input textarea-note mb-3"
+                                style={{ minHeight: '100px', marginTop: 0 }}
+                                value={dashboardTaskInputs[task.id] || ""}
+                                onChange={e => setDashboardTaskInputs(p => ({...p, [task.id]: e.target.value}))}
                               />
-                            )}
+                              <div className="flex">
+                                <button 
+                                  className="action-btn action-btn-note active font-semibold" 
+                                  style={{ padding: '0.4rem 0.8rem' }}
+                                  onClick={() => {
+                                     const content = dashboardTaskInputs[task.id];
+                                     if (!content?.trim()) return;
+                                     updateNote("tasks", task.id, content.trim());
+                                     setDashboardTaskInputs(p => ({...p, [task.id]: ""}));
+                                  }}>
+                                  Save Note
+                                </button>
+                                <Link href="/notes" className="action-btn ml-3" style={{ padding: '0.4rem 0.8rem' }}>Manage →</Link>
+                              </div>
+                              {notesData.tasks[task.id] && (
+                                <div className="mt-3 text-sm text-[var(--color-note)]">
+                                  <span className="font-semibold">✓</span> You have a saved note for this topic.
+                                </div>
+                              )}
+                            </div>
+                          )}
                           </div>
                         </div>
                       );

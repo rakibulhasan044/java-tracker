@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import roadmapData from "../data/roadmap.json";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
 
 const parseNotes = (text: string) => {
   const blocks = text.split('\n\n---\n\n');
@@ -266,8 +267,8 @@ export default function NotesPage() {
                               className="action-btn" title="Delete" style={{ padding: '0.3rem 0.6rem', flexShrink: 0, color: '#ef4444', fontWeight: 600 }}>Delete</button>
                           </div>
                           {isOpen && (
-                            <div className="mt-3 whitespace-pre-wrap animate-in" style={{ lineHeight: '1.75', fontSize: '0.97rem', color: 'var(--text-muted)', paddingLeft: '1.25rem' }}>
-                              {note.content}
+                            <div className="mt-3 animate-in markdown-body" style={{ paddingLeft: '1.25rem' }}>
+                              <ReactMarkdown>{note.content}</ReactMarkdown>
                             </div>
                           )}
                         </>
@@ -319,8 +320,8 @@ export default function NotesPage() {
                             className="action-btn" title="Delete" style={{ padding: '0.3rem 0.6rem', flexShrink: 0, color: '#ef4444', fontWeight: 600 }}>Delete</button>
                         </div>
                         {isOpen && (
-                          <div className="mt-3 whitespace-pre-wrap animate-in" style={{ lineHeight: '1.75', fontSize: '0.97rem', color: 'var(--text-muted)', paddingLeft: '1.25rem' }}>
-                            {tasksData[task.id]}
+                          <div className="mt-3 animate-in markdown-body" style={{ paddingLeft: '1.25rem' }}>
+                            <ReactMarkdown>{tasksData[task.id]}</ReactMarkdown>
                           </div>
                         )}
                       </>

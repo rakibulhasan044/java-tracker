@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import roadmapData from "../data/roadmap.json";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
 
 const parseQA = (text: string) => {
   const parts = text.split(/\n\n(?=\*\*Q:)/);
@@ -226,8 +227,8 @@ export default function InterviewQuestions() {
                               style={{ padding: '0.3rem 0.6rem', fontSize: '0.85rem', flexShrink: 0, color: '#ef4444', fontWeight: 600 }}>Delete</button>
                           </div>
                           {isExpanded && (
-                            <div className="mt-3 whitespace-pre-wrap animate-in" style={{ lineHeight: '1.75', fontSize: '0.97rem', color: 'var(--text-muted)', paddingLeft: '0.25rem' }}>
-                              {item.a}
+                            <div className="mt-3 animate-in markdown-body" style={{ paddingLeft: '0.25rem' }}>
+                              <ReactMarkdown>{item.a}</ReactMarkdown>
                             </div>
                           )}
                         </>

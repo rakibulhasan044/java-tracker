@@ -55,6 +55,7 @@ export default function NotesPage() {
       .then(res => res.json())
       .then(data => {
         if (data.notes) {
+          localStorage.setItem("java-roadmap-notes", JSON.stringify(data.notes));
           if (data.notes.weeks) setWeeksData(data.notes.weeks);
           if (data.notes.tasks) setTasksData(data.notes.tasks);
         } else {
@@ -260,9 +261,9 @@ export default function NotesPage() {
                               <span className="text-muted ml-1 text-sm flex-shrink-0">{isOpen ? '▲' : '▼'}</span>
                             </button>
                             <button onClick={() => { setEditingId(noteId); setEditTitle(note.title); setEditContent(note.content); setExpandedNotes(prev => { const n = new Set(prev); n.add(noteId); return n; }); }}
-                              className="action-btn" title="Edit" style={{ padding: '0.3rem 0.6rem', flexShrink: 0 }}>✏️</button>
+                              className="action-btn" title="Edit" style={{ padding: '0.3rem 0.6rem', flexShrink: 0, fontWeight: 600 }}>Edit</button>
                             <button onClick={() => { if (confirm('Delete this note?')) handleDeleteWeekNote(week.id, note.id); }}
-                              className="action-btn" title="Delete" style={{ padding: '0.3rem 0.6rem', flexShrink: 0, color: '#ef4444' }}>🗑️</button>
+                              className="action-btn" title="Delete" style={{ padding: '0.3rem 0.6rem', flexShrink: 0, color: '#ef4444', fontWeight: 600 }}>Delete</button>
                           </div>
                           {isOpen && (
                             <div className="mt-3 whitespace-pre-wrap animate-in" style={{ lineHeight: '1.75', fontSize: '0.97rem', color: 'var(--text-muted)', paddingLeft: '1.25rem' }}>
@@ -313,9 +314,9 @@ export default function NotesPage() {
                             <span className="text-muted text-sm flex-shrink-0 mt-1">{isOpen ? '▲' : '▼'}</span>
                           </button>
                           <button onClick={() => { setEditingId(noteId); setEditContent(tasksData[task.id]); setExpandedNotes(prev => { const n = new Set(prev); n.add(noteId); return n; }); }}
-                            className="action-btn" title="Edit" style={{ padding: '0.3rem 0.6rem', flexShrink: 0 }}>✏️</button>
+                            className="action-btn" title="Edit" style={{ padding: '0.3rem 0.6rem', flexShrink: 0, fontWeight: 600 }}>Edit</button>
                           <button onClick={() => { if (confirm('Delete this note?')) handleDeleteTaskNote(task.id); }}
-                            className="action-btn" title="Delete" style={{ padding: '0.3rem 0.6rem', flexShrink: 0, color: '#ef4444' }}>🗑️</button>
+                            className="action-btn" title="Delete" style={{ padding: '0.3rem 0.6rem', flexShrink: 0, color: '#ef4444', fontWeight: 600 }}>Delete</button>
                         </div>
                         {isOpen && (
                           <div className="mt-3 whitespace-pre-wrap animate-in" style={{ lineHeight: '1.75', fontSize: '0.97rem', color: 'var(--text-muted)', paddingLeft: '1.25rem' }}>

@@ -55,15 +55,18 @@ export default function TrackerDashboard() {
 
         if (data.progress && Object.keys(data.progress).length > 0) {
           setCompletedTasks(data.progress);
+          localStorage.setItem("java-roadmap-progress", JSON.stringify(data.progress));
           loadedProgress = true;
         }
 
         if (
           data.notes &&
           (Object.keys(data.notes.tasks || {}).length > 0 ||
-            Object.keys(data.notes.weeks || {}).length > 0)
+            Object.keys(data.notes.weeks || {}).length > 0 || 
+            Object.keys(data.notes.interview || {}).length > 0)
         ) {
           setNotesData(data.notes);
+          localStorage.setItem("java-roadmap-notes", JSON.stringify(data.notes));
           loadedNotes = true;
         }
 

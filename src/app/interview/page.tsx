@@ -49,8 +49,10 @@ export default function InterviewQuestions() {
     fetch('/api/data')
       .then(res => res.json())
       .then(data => {
-        if (data.notes?.interview) setInterviewData(data.notes.interview);
-        else {
+        if (data.notes) {
+          localStorage.setItem("java-roadmap-notes", JSON.stringify(data.notes));
+          if (data.notes.interview) setInterviewData(data.notes.interview);
+        } else {
           const saved = localStorage.getItem("java-roadmap-notes");
           if (saved) {
             try { const p = JSON.parse(saved); if (p.interview) setInterviewData(p.interview); }
@@ -217,11 +219,11 @@ export default function InterviewQuestions() {
                             <button
                               onClick={() => { setEditingId(qaId); setEditQ(item.q); setEditA(item.a); setExpandedQA(prev => { const n = new Set(prev); n.add(qaId); return n; }); }}
                               className="action-btn" title="Edit"
-                              style={{ padding: '0.3rem 0.6rem', fontSize: '0.8rem', flexShrink: 0 }}>✏️</button>
+                              style={{ padding: '0.3rem 0.6rem', fontSize: '0.85rem', flexShrink: 0, fontWeight: 600 }}>Edit</button>
                             <button
                               onClick={() => { if (confirm('Delete this question?')) handleDelete(week.id, item.id); }}
                               className="action-btn" title="Delete"
-                              style={{ padding: '0.3rem 0.6rem', fontSize: '0.8rem', flexShrink: 0, color: '#ef4444' }}>🗑️</button>
+                              style={{ padding: '0.3rem 0.6rem', fontSize: '0.85rem', flexShrink: 0, color: '#ef4444', fontWeight: 600 }}>Delete</button>
                           </div>
                           {isExpanded && (
                             <div className="mt-3 whitespace-pre-wrap animate-in" style={{ lineHeight: '1.75', fontSize: '0.97rem', color: 'var(--text-muted)', paddingLeft: '0.25rem' }}>

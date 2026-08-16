@@ -9,10 +9,11 @@
   },
   "notes": {
     "tasks": {
-      "t-1-1": "checking"
+      "t-1-1": ""
     },
     "weeks": {
-      "week-1": ""
+      "week-1": "",
+      "week-2": "**Java object deep**\nA Java object is generally made up of three parts: Object Header, Actual Data, and Padding. The Object Header contains JVM metadata and is 12 bytes in this example: 8 bytes for the Mark Word, which stores information related to locking, synchronization, and garbage collection, and 4 bytes for the Class Pointer, which points to the object's class information. Actual Data is the memory occupied by the object's fields. Finally, Padding consists of extra unused bytes added by the JVM to align the object's total size to an 8-byte boundary. Therefore, the basic formula is: Object Size = Header + Actual Data + Padding. The exact size can vary depending on the JVM and its configuration."
     },
     "interview": {
       "week-1": "",

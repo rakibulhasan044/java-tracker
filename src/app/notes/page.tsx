@@ -240,12 +240,12 @@ export default function NotesPage() {
                   const isOpen = expandedNotes.has(noteId);
                   const isEditing = editingId === noteId;
                   return (
-                    <div key={noteId} className="border-b last:border-0 pb-4 mb-2 last:mb-0 last:pb-0" style={{ borderColor: 'var(--border)' }}>
+                    <div key={noteId} className={`note-wrapper ${isOpen ? 'expanded' : ''} flex-col !items-stretch`}>
                       {isEditing ? (
-                        <div className="flex flex-col gap-3 animate-in p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-note)', border: '1px solid var(--border-note)' }}>
-                          <input className="textarea-input" style={{ minHeight: 'auto', padding: '0.6rem 0.75rem', width: '100%', fontWeight: 600 }}
+                        <div className="flex flex-col gap-3 animate-in w-full">
+                          <input className="textarea-input" style={{ minHeight: 'auto', padding: '0.6rem 0.75rem', width: '100%', fontWeight: 600, backgroundColor: 'var(--surface)' }}
                             placeholder="Title..." value={editTitle} onChange={e => setEditTitle(e.target.value)} />
-                          <textarea className="textarea-input textarea-note" style={{ minHeight: '140px' }}
+                          <textarea className="textarea-input textarea-note" style={{ minHeight: '140px', backgroundColor: 'var(--surface)' }}
                             value={editContent} onChange={e => setEditContent(e.target.value)} />
                           <div className="flex gap-3">
                             <button className="action-btn action-btn-note active" onClick={() => handleEditSaveWeek(week.id, note.id)} style={{ padding: '0.5rem 1.2rem', borderRadius: '6px' }}>Save</button>
@@ -291,11 +291,11 @@ export default function NotesPage() {
                 const isOpen = expandedNotes.has(noteId);
                 const isEditing = editingId === noteId;
                 return (
-                  <div key={noteId} className="border-b last:border-0 pb-4 mb-2 last:mb-0 last:pb-0" style={{ borderColor: 'var(--border)' }}>
+                  <div key={noteId} className={`note-wrapper ${isOpen ? 'expanded' : ''} flex-col !items-stretch`}>
                     {isEditing ? (
-                      <div className="flex flex-col gap-3 animate-in p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-note)', border: '1px solid var(--border-note)' }}>
+                      <div className="flex flex-col gap-3 animate-in w-full">
                         <p className="font-semibold text-sm" style={{ color: 'var(--text-muted)' }}>{task.description}</p>
-                        <textarea className="textarea-input textarea-note" style={{ minHeight: '140px' }}
+                        <textarea className="textarea-input textarea-note" style={{ minHeight: '140px', backgroundColor: 'var(--surface)' }}
                           value={editContent} onChange={e => setEditContent(e.target.value)} />
                         <div className="flex gap-3">
                           <button className="action-btn action-btn-note active" onClick={() => handleEditSaveTask(task.id)} style={{ padding: '0.5rem 1.2rem', borderRadius: '6px' }}>Save</button>

@@ -197,12 +197,12 @@ export default function InterviewQuestions() {
                   const isExpanded = expandedQA.has(qaId);
                   const isEditing = editingId === qaId;
                   return (
-                    <div key={qaId} className="border-b last:border-0 pb-4 mb-2 last:mb-0 last:pb-0" style={{ borderColor: 'var(--border)' }}>
+                    <div key={qaId} className={`qa-wrapper ${isExpanded ? 'expanded' : ''} flex-col !items-stretch`}>
                       {isEditing ? (
-                        <div className="flex flex-col gap-3 animate-in p-4 rounded-lg" style={{ backgroundColor: 'var(--bg-interview)', border: '1px solid var(--border-interview)' }}>
-                          <input className="textarea-input" style={{ minHeight: 'auto', padding: '0.6rem 0.75rem', width: '100%', fontWeight: 600 }}
+                        <div className="flex flex-col gap-3 animate-in w-full">
+                          <input className="textarea-input" style={{ minHeight: 'auto', padding: '0.6rem 0.75rem', width: '100%', fontWeight: 600, backgroundColor: 'var(--surface)' }}
                             value={editQ} onChange={e => setEditQ(e.target.value)} placeholder="Question..." />
-                          <textarea className="textarea-input" style={{ minHeight: '120px' }}
+                          <textarea className="textarea-input" style={{ minHeight: '120px', backgroundColor: 'var(--surface)' }}
                             value={editA} onChange={e => setEditA(e.target.value)} placeholder="Answer..." />
                           <div className="flex gap-3">
                             <button className="action-btn action-btn-interview active" onClick={() => handleEditSave(week.id, item.id)} style={{ padding: '0.5rem 1.2rem', borderRadius: '6px' }}>Save</button>

@@ -186,17 +186,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Checkbox */
-.checkbox-wrapper {
+.checkbox-wrapper, .qa-wrapper, .note-wrapper {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
-  padding: 1.15rem 1.25rem;
-  border: 1px solid var(--border);
+  padding: 1.15rem;
   border-radius: var(--radius-md);
-  transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  border: 1px solid var(--border);
+  transition: all 0.25s ease;
+  background-color: var(--surface);
+  margin-bottom: 0.75rem;
 }
 
-.checkbox-wrapper:hover {
+.checkbox-wrapper:hover, .qa-wrapper:hover, .note-wrapper:hover {
   background-color: rgba(79, 70, 229, 0.03);
   border-color: rgba(79, 70, 229, 0.15);
   box-shadow: var(--shadow-sm);
@@ -205,6 +207,18 @@ h1, h2, h3, h4, h5, h6 {
 .checkbox-wrapper.completed {
   background: linear-gradient(135deg, rgba(16, 185, 129, 0.06), rgba(16, 185, 129, 0.02));
   border-color: rgba(16, 185, 129, 0.25);
+}
+
+.qa-wrapper.expanded {
+  background-color: var(--bg-interview);
+  border-color: var(--border-interview);
+  box-shadow: var(--shadow-sm);
+}
+
+.note-wrapper.expanded {
+  background-color: var(--bg-note);
+  border-color: var(--border-note);
+  box-shadow: var(--shadow-sm);
 }
 
 .checkbox-input {

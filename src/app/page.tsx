@@ -207,25 +207,23 @@ export default function TrackerDashboard() {
           <div className="flex gap-3 items-center">
             <Link
               href="/notes"
-              className="action-btn action-btn-note active whitespace-nowrap"
-              style={{
-                padding: "0.5rem 1rem",
-                textDecoration: "none",
-                borderRadius: "8px",
-              }}
+              className="action-btn action-btn-note active"
+              style={{ padding: '0 1.25rem', height: '40px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, whiteSpace: 'nowrap' }}
             >
-              Notes →
+              Notes
             </Link>
             <Link
               href="/interview"
-              className="action-btn action-btn-interview active whitespace-nowrap"
-              style={{
-                padding: "0.5rem 1rem",
-                textDecoration: "none",
-                borderRadius: "8px",
-              }}
+              className="action-btn action-btn-interview active"
+              style={{ padding: '0 1.25rem', height: '40px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, whiteSpace: 'nowrap' }}
+            >Interview Qs</Link>
+            <Link href="/qabank" className="action-btn active" style={{ padding: '0 1.25rem', height: '40px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, whiteSpace: 'nowrap', backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#059669' }}>QA Bank</Link>
+            <Link
+              href="/projects"
+              className="action-btn active"
+              style={{ padding: '0 1.25rem', height: '40px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, whiteSpace: 'nowrap', backgroundColor: "var(--foreground)", color: "var(--background)" }}
             >
-              Interview Qs →
+              Projects
             </Link>
           </div>
         </div>

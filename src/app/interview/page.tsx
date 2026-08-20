@@ -110,16 +110,13 @@ export default function InterviewQuestions() {
     <div className="animate-in">
       <header className="mb-8 flex justify-between items-start">
         <div>
-          <h1 className="text-3xl mb-2">Interview Questions</h1>
-          <p className="text-muted text-lg">Your saved interview prep by phase</p>
+          <h1 className="text-3xl font-bold tracking-tight mb-2">Interview Qs</h1>
+          <p className="text-muted text-lg">Saved interview questions and answers</p>
         </div>
         <div className="flex gap-3 items-center">
-          <Link href="/notes" className="action-btn action-btn-note active" style={{ padding: '0.6rem 1.1rem', fontSize: '0.9rem', borderRadius: '8px', textDecoration: 'none' }}>
-            Notes →
-          </Link>
-          <Link href="/" className="badge" style={{ padding: '0.6rem 1rem', fontSize: '0.9rem' }}>
-            ← Dashboard
-          </Link>
+          <Link href="/" className="action-btn active" style={{ padding: '0 1.25rem', height: '40px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, whiteSpace: 'nowrap', backgroundColor: 'var(--surface)', color: 'var(--foreground)', border: '1px solid var(--border)' }}>Dashboard</Link>
+          <Link href="/notes" className="action-btn action-btn-note active" style={{ padding: '0 1.25rem', height: '40px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, whiteSpace: 'nowrap' }}>Notes</Link>
+          <Link href="/projects" className="action-btn active" style={{ padding: '0 1.25rem', height: '40px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.9rem', borderRadius: '8px', textDecoration: 'none', fontWeight: 600, whiteSpace: 'nowrap', backgroundColor: 'var(--foreground)', color: 'var(--background)' }}>Projects</Link>
         </div>
       </header>
 

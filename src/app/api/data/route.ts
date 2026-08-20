@@ -16,14 +16,16 @@ async function initDb() {
       CREATE TABLE IF NOT EXISTS user_data (
         id INT PRIMARY KEY,
         progress JSONB,
-        notes JSONB
+        notes JSONB,
+        submissions JSONB DEFAULT '{}'::jsonb,
+        qabank JSONB DEFAULT '[]'::jsonb
       );
     `);
     
     // Ensure the single user row exists
     await pool.query(`
-      INSERT INTO user_data (id, progress, notes) 
-      VALUES (1, '{}'::jsonb, '{}'::jsonb) 
+      INSERT INTO user_data (id, progress, notes, submissions, qabank) 
+      VALUES (1, '{}'::jsonb, '{}'::jsonb, '{}'::jsonb, '[]'::jsonb) 
       ON CONFLICT (id) DO NOTHING;
     `);
     
@@ -42,12 +44,12 @@ export async function GET() {
     
     await initDb();
     
-    const result = await pool.query('SELECT progress, notes FROM user_data WHERE id = 1');
+    const result = await pool.query('SELECT progress, notes, submissions, qabank FROM user_data WHERE id = 1');
     if (result.rows.length > 0) {
       return NextResponse.json(result.rows[0]);
     }
     
-    return NextResponse.json({ progress: null, notes: null });
+    return NextResponse.json({ progress: null, notes: null, submissions: null, qabank: [] });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: 'Failed to read data' }, { status: 500 });
@@ -65,7 +67,7 @@ export async function POST(request: Request) {
     
     await pool.query(
       'UPDATE user_data SET progress = $1, notes = $2 WHERE id = 1',
-      [JSON.stringify(data.progress || {}), JSON.stringify(data.notes || {})]
+      [JSON.stringify(data.progress || {}), JSON.stringify(data.notes || {}), JSON.stringify(data.submissions || {}), JSON.stringify(data.qabank || [])]
     );
     
     return NextResponse.json({ success: true });

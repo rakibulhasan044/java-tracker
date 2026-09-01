@@ -3,7 +3,7 @@
     {
       "id": "phase-1",
       "title": "Phase 1: Java Core",
-      "duration": "Weeks 1-11",
+      "duration": "Weeks 1-8",
       "weeks": [
         {
           "id": "week-1",
@@ -178,90 +178,7 @@
         },
         {
           "id": "week-7",
-          "title": "Week 7 — SQL Fundamentals & Relational Design",
-          "tasks": [
-            {
-              "id": "t-sql-1",
-              "description": "DDL & DML basics: CREATE, ALTER, DROP, INSERT, UPDATE, DELETE",
-              "type": "learning"
-            },
-            {
-              "id": "t-sql-2",
-              "description": "Primary Keys, Foreign Keys, Constraints (UNIQUE, CHECK, NOT NULL)",
-              "type": "learning"
-            },
-            {
-              "id": "t-sql-3",
-              "description": "Complex queries: INNER JOIN, LEFT/RIGHT JOIN, FULL OUTER JOIN, CROSS JOIN",
-              "type": "learning"
-            },
-            {
-              "id": "t-sql-4",
-              "description": "Aggregation: GROUP BY, HAVING, SUM, AVG, COUNT",
-              "type": "learning"
-            },
-            {
-              "id": "p-sql-1",
-              "description": "20 Practice queries on a sample database (e.g., DVD Rental or Northwind)",
-              "type": "practice"
-            }
-          ]
-        },
-        {
-          "id": "week-8",
-          "title": "Week 8 — Advanced PostgreSQL Features",
-          "tasks": [
-            {
-              "id": "t-sql-5",
-              "description": "Advanced querying: Subqueries, CTEs (WITH clause)",
-              "type": "learning"
-            },
-            {
-              "id": "t-sql-6",
-              "description": "Window Functions: ROW_NUMBER(), RANK(), DENSE_RANK(), OVER()",
-              "type": "learning"
-            },
-            {
-              "id": "t-sql-7",
-              "description": "Performance: Indexes (B-Tree, Hash), EXPLAIN ANALYZE, query optimization",
-              "type": "learning"
-            },
-            {
-              "id": "t-sql-8",
-              "description": "Database programming: Stored Procedures, Functions, Triggers, Views",
-              "type": "learning"
-            }
-          ]
-        },
-        {
-          "id": "week-9",
-          "title": "Checkpoint Project — Week 9: Raw SQL Projects",
-          "tasks": [
-            {
-              "id": "cp-sql-1",
-              "description": "Project 1 (Medium): E-Commerce Database Architecture. Design a normalized schema for a store with products, users, orders, and payments using raw PostgreSQL scripts.",
-              "type": "project",
-              "difficultyTiers": {
-                "easy": "1. Functional Requirements:\n- Create tables for Users, Products, Orders, and Order_Items with primary/foreign keys.\n- Write raw SQL scripts to insert dummy data.\n- Write 5 basic SELECT/JOIN queries to retrieve user orders.",
-                "medium": "1. Advanced Requirements:\n- Enforce referential integrity with CASCADE deletes.\n- Write complex queries using GROUP BY and HAVING to find top-selling products.\n- Create a View that calculates total revenue per month.",
-                "hard": "1. Enterprise Requirements:\n- Add B-Tree indexes to optimize product searches based on specific WHERE clauses.\n- Write a PostgreSQL Trigger that prevents placing an order if stock is 0.\n- Use a Transaction block (BEGIN/COMMIT) to ensure order placement and inventory deduction happen atomically."
-              }
-            },
-            {
-              "id": "cp-sql-2",
-              "description": "Project 2 (Hard): Ride-Sharing Analytics Engine. Build a complex database for an Uber-like app focusing on geospatial concepts, window functions, and heavy analytical querying.",
-              "type": "project",
-              "difficultyTiers": {
-                "easy": "1. Functional Requirements:\n- Create tables for Drivers, Riders, Rides, and Payments.\n- Write raw SQL scripts to populate realistic dummy data.\n- Write simple JOIN queries to list all rides taken by a specific user.",
-                "medium": "1. Advanced Requirements:\n- Use Window Functions (RANK) to rank the top 3 highest-earning drivers per city.\n- Write a CTE (Common Table Expression) to find users who took rides on 3 consecutive days.",
-                "hard": "1. Enterprise Requirements:\n- Use advanced mathematical SQL queries (Haversine formula) to calculate distance between rider and driver.\n- Write a complex Stored Procedure that matches a rider to the nearest available driver and updates status.\n- Use EXPLAIN ANALYZE to optimize a heavily nested subquery."
-              }
-            }
-          ]
-        },
-        {
-          "id": "week-10",
-          "title": "Week 10 — Raw JDBC (before you meet Spring Data JPA)",
+          "title": "Week 7 — Raw JDBC (before you meet Spring Data JPA)",
           "tasks": [
             {
               "id": "t-7-1",
@@ -306,8 +223,8 @@
           ]
         },
         {
-          "id": "week-11",
-          "title": "Checkpoint Project — Week 11: Student Management System (Java + JDBC + Servlets)",
+          "id": "week-8",
+          "title": "Checkpoint Project — Week 8: Student Management System (Java + JDBC + Servlets)",
           "tasks": [
             {
               "id": "cp-8-1",
@@ -326,10 +243,10 @@
     {
       "id": "phase-2",
       "title": "Phase 2: DSA",
-      "duration": "Weeks 12-23",
+      "duration": "Weeks 9-20",
       "weeks": [
         {
-          "id": "weeks-9-10",
+          "id": "week-9",
           "title": "Weeks 9-10 — Foundations (Arrays, Strings, Two-Pointer, Sliding Window, Sorting)",
           "tasks": [
             {
@@ -340,7 +257,7 @@
           ]
         },
         {
-          "id": "weeks-11-12",
+          "id": "week-10",
           "title": "Weeks 11-12 — LinkedList, Stack, Queue, HashMap/HashSet Deep Dive",
           "tasks": [
             {
@@ -351,7 +268,7 @@
           ]
         },
         {
-          "id": "weeks-13-14",
+          "id": "week-11",
           "title": "Weeks 13-14 — Trees & Graphs",
           "tasks": [
             {
@@ -362,7 +279,7 @@
           ]
         },
         {
-          "id": "weeks-15-17",
+          "id": "week-12",
           "title": "Weeks 15-17 — Dynamic Programming & Greedy",
           "tasks": [
             {
@@ -373,7 +290,7 @@
           ]
         },
         {
-          "id": "weeks-18-20",
+          "id": "week-13",
           "title": "Weeks 18-20 — Practice, Mixed Review & Mock Interviews",
           "tasks": [
             {
@@ -392,11 +309,97 @@
     },
     {
       "id": "phase-3",
-      "title": "Phase 3: Spring Boot",
-      "duration": "Weeks 24-36",
+      "title": "Phase 3: Relational Databases & PostgreSQL Mastery",
+      "duration": "Weeks 21-24",
       "weeks": [
         {
-          "id": "weeks-21-22",
+          "id": "week-21",
+          "title": "Week 21 — Standard SQL Foundation",
+          "tasks": [
+            {
+              "id": "t-21-1",
+              "type": "practice",
+              "description": "DDL, DML, DQL (CREATE, INSERT, SELECT)"
+            },
+            {
+              "id": "t-21-2",
+              "type": "practice",
+              "description": "Standard JOINs (INNER, LEFT, RIGHT, FULL)"
+            },
+            {
+              "id": "t-21-3",
+              "type": "practice",
+              "description": "Aggregations (GROUP BY, HAVING)"
+            }
+          ]
+        },
+        {
+          "id": "week-22",
+          "title": "Week 22 — PostgreSQL Specifics & PL/pgSQL",
+          "tasks": [
+            {
+              "id": "t-22-1",
+              "type": "practice",
+              "description": "PostgreSQL Data Types: JSONB, UUID, Arrays"
+            },
+            {
+              "id": "t-22-2",
+              "type": "practice",
+              "description": "Window Functions & CTEs"
+            },
+            {
+              "id": "t-22-3",
+              "type": "practice",
+              "description": "PL/pgSQL: Triggers, Stored Procedures, Views"
+            },
+            {
+              "id": "t-22-4",
+              "type": "practice",
+              "description": "MVCC & Indexing (B-Tree, GIN, GiST)"
+            }
+          ]
+        },
+        {
+          "id": "week-23",
+          "title": "Checkpoint Project — Week 23: Standard Database Architecture",
+          "tasks": [
+            {
+              "id": "cp-sql-1",
+              "type": "project",
+              "description": "Project: E-Commerce & Ride-Sharing DBs",
+              "difficultyTiers": {
+                "easy": "1. Functional Requirements:\n- Create tables for Users, Products, Orders, and Order_Items with primary/foreign keys.\n- Write raw SQL scripts to insert dummy data.\n- Write 5 basic SELECT/JOIN queries to retrieve user orders.",
+                "medium": "1. Advanced Requirements:\n- Enforce referential integrity with CASCADE deletes.\n- Write complex queries using GROUP BY and HAVING to find top-selling products.\n- Create a View that calculates total revenue per month.",
+                "hard": "1. Enterprise Requirements:\n- Add B-Tree indexes to optimize product searches based on specific WHERE clauses.\n- Write a PostgreSQL Trigger that prevents placing an order if stock is 0.\n- Use a Transaction block (BEGIN/COMMIT) to ensure order placement and inventory deduction happen atomically."
+              }
+            }
+          ]
+        },
+        {
+          "id": "week-24",
+          "title": "Capstone Project — Week 24: Enterprise Logistics Platform Database",
+          "tasks": [
+            {
+              "id": "cp-sql-2",
+              "type": "project",
+              "description": "Capstone: Global Freight Management System DB",
+              "difficultyTiers": {
+                "easy": "Design the basic schema for Vehicles and Drivers.",
+                "medium": "Implement foreign keys, standard constraints, and Views.",
+                "hard": "**NEUROSOFTIC LOGISTICS & FREIGHT MANAGEMENT PLATFORM**\\n\\n**1. Executive Summary**\\nThis assignment defines a complete backend database architecture for a multi-sector freight management platform. The schema must support Vehicles, Consignments, Depots, Courier Integrations, and Payments without hard-coding status enums, using normalized tables.\\n\\n**2. Core Objectives**\\n- Build a highly normalized, reusable PostgreSQL schema.\\n- Utilize PostgreSQL-specific features (JSONB for courier API payloads, UUIDs for consignment tracking).\\n- Guarantee transactional integrity for payment allocations.\\n\\n**3. High-Level System Modules**\\n- **Auth/RBAC:** Roles, Permissions, Admin Users.\\n- **Fleet Management:** Vehicles, Maintenance Logs, Driver Assignments.\\n- **Consignments:** Parcels, Waybills, Routing, Delivery Status History.\\n- **Payments:** Ledger, Invoices, Due Collection.\\n\\n**4. Core Database Entities to Implement**\\n`User`, `Role`, `Vehicle`, `Depot`, `Consignment`, `ConsignmentEvent` (audit trail), `PaymentTransaction`.\\n\\n**5. Advanced PostgreSQL Requirements**\\n- Write a **PL/pgSQL Trigger** that automatically logs a record into `ConsignmentEvent` every time a consignment's status changes.\\n- Use a **Materialized View** to calculate daily revenue and outstanding dues per Depot, refreshable via a cron job/stored procedure.\\n- Implement a **JSONB** column in the `Consignment` table to store raw webhook payloads from external courier APIs (e.g., FedEx, Pathao).\\n- Create a **GIN Index** on the JSONB payload to allow fast querying of specific external tracking IDs."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "title": "Phase 4: Spring Boot",
+      "duration": "Weeks 25-37",
+      "weeks": [
+        {
+          "id": "week-25",
           "title": "Weeks 21-22 — Spring Core & Boot Basics",
           "tasks": [
             {
@@ -432,8 +435,8 @@
           ]
         },
         {
-          "id": "week-22-5",
-          "title": "Checkpoint Project — Week 22.5: Console Banking App (Spring Core Only)",
+          "id": "week-26",
+          "title": "Checkpoint Project — Week 26.5: Console Banking App (Spring Core Only)",
           "tasks": [
             {
               "id": "cp-22-1",
@@ -448,8 +451,8 @@
           ]
         },
         {
-          "id": "week-23",
-          "title": "Checkpoint Project — Week 23: Mini REST API (BookMyShow-lite)",
+          "id": "week-27",
+          "title": "Checkpoint Project — Week 27: Mini REST API (BookMyShow-lite)",
           "tasks": [
             {
               "id": "cp-23-1",
@@ -464,7 +467,7 @@
           ]
         },
         {
-          "id": "weeks-24-25",
+          "id": "week-28",
           "title": "Weeks 24-25 — Data Layer",
           "tasks": [
             {
@@ -495,7 +498,7 @@
           ]
         },
         {
-          "id": "weeks-26-27",
+          "id": "week-29",
           "title": "Weeks 26-27 — Security & Validation",
           "tasks": [
             {
@@ -526,8 +529,8 @@
           ]
         },
         {
-          "id": "week-28",
-          "title": "Checkpoint Project — Week 28: Registration & Login System",
+          "id": "week-30",
+          "title": "Checkpoint Project — Week 30: Registration & Login System",
           "tasks": [
             {
               "id": "cp-28-1",
@@ -542,8 +545,8 @@
           ]
         },
         {
-          "id": "week-29",
-          "title": "Week 29 — Testing",
+          "id": "week-31",
+          "title": "Week 31 — Testing",
           "tasks": [
             {
               "id": "t-29-1",
@@ -568,8 +571,8 @@
           ]
         },
         {
-          "id": "week-30",
-          "title": "Week 30 — AOP (Aspect-Oriented Programming)",
+          "id": "week-32",
+          "title": "Week 32 — AOP (Aspect-Oriented Programming)",
           "tasks": [
             {
               "id": "t-30-1",
@@ -589,36 +592,31 @@
           ]
         },
         {
-          "id": "weeks-31-33",
-          "title": "Weeks 31-33 — Milestone Project: Spring Boot ShopiOne Rebuild",
+          "id": "week-33",
+          "title": "Capstone Project — Week 37: Enterprise Commerce ERP",
           "tasks": [
             {
-              "id": "cp-31-1",
-              "description": "Rebuild scaled-down ShopiOne: multi-role auth, JWT, category tree with cycle detection, Redis caching layer.",
+              "id": "cp-spring-capstone",
               "type": "project",
+              "description": "Capstone: Neurosoftic Leaves Commerce ERP Backend",
               "difficultyTiers": {
-                "easy": "1. Functional Requirements:\n- Build the core MVP logic based strictly on the current week's topics.\n- Implement basic CRUD or equivalent processing.",
-                "medium": "1. Advanced Requirements:\n- Handle all edge cases and input validation.\n- Enforce strict OOP principles or layered architecture.\n- Write basic Unit Tests.",
-                "hard": "1. Enterprise Requirements:\n- Optimize for high concurrency or large data sets using techniques learned so far.\n- Implement complex business rules and error recovery.\n- Achieve 80%+ test coverage."
+                "easy": "Implement the basic Spring Boot REST API for Catalog and Product Management using Spring Data JPA.",
+                "medium": "Implement Authentication/Authorization using Spring Security & JWT, and the Order Management state machine.",
+                "hard": "**NEUROSOFTIC LEAVES COMMERCE (SPRING BOOT CAPSTONE)**\n\n**1. Executive Summary**\nBuild the complete backend for the Leaves Commerce Platform using a modular monolith architecture in Spring Boot. This includes Catalog, RBAC, Inventory Ledgers, Cart, Checkout, and Accounting modules.\n\n**2. Core Technical Requirements**\n- **Framework:** Spring Boot 3.x with Java 17+.\n- **Security:** Spring Security with JWT and strict method-level security (`@PreAuthorize`). Super Admin (Role 1) bypass logic.\n- **Database:** PostgreSQL with Spring Data JPA / Hibernate.\n- **Transactions:** Strict `@Transactional` boundaries for Order Confirmation and Double-Entry Accounting journal lines.\n\n**3. Required Modules to Implement**\n- **RBAC:** Dynamic permission-based access control. User vs Role vs Permission.\n- **Catalog:** Generic Attribute-based product variants (no hard-coded shoe_size columns).\n- **Inventory:** Immutable `stock_movements` ledger instead of overwriting quantities.\n- **Order Lifecycle:** DRAFT -> PENDING -> CONFIRMED -> SHIPPED -> DELIVERED.\n- **Accounting:** Double-entry bookkeeping. Posting `journal_lines` for sales and COGS.\n\n**4. Specific Spring Boot Challenges**\n- Implement a Custom Authentication Provider or Filter for manual Bank/bKash payment verification.\n- Handle the N+1 select problem in Hibernate when fetching Products and their dynamic Attributes.\n- Implement an idempotency key interceptor to prevent duplicate payment webhook processing.\n\n*Note: See the full FRS Document generated for complete architectural guidelines.*"
               }
-            },
-            {
-              "id": "cp-31-2",
-              "description": "10 Build tasks (Skeleton setup, Auth, Caching, Logging, Error handling, Deployment, README)",
-              "type": "practice"
             }
           ]
         }
       ]
     },
     {
-      "id": "phase-4",
-      "title": "Phase 4: Advanced Topics",
-      "duration": "Weeks 37-49",
+      "id": "phase-5",
+      "title": "Phase 5: Advanced Topics",
+      "duration": "Weeks 38-50",
       "weeks": [
         {
-          "id": "week-34",
-          "title": "Week 34 — Docker & Containerization",
+          "id": "week-38",
+          "title": "Week 38 — Docker & Containerization",
           "tasks": [
             {
               "id": "t-34-1",
@@ -638,8 +636,8 @@
           ]
         },
         {
-          "id": "week-35",
-          "title": "Week 35 — CI/CD with GitHub Actions",
+          "id": "week-39",
+          "title": "Week 39 — CI/CD with GitHub Actions",
           "tasks": [
             {
               "id": "t-35-1",
@@ -659,7 +657,7 @@
           ]
         },
         {
-          "id": "weeks-36-37",
+          "id": "week-40",
           "title": "Weeks 36-37 — Messaging: Kafka & RabbitMQ",
           "tasks": [
             {
@@ -690,8 +688,8 @@
           ]
         },
         {
-          "id": "week-38",
-          "title": "Checkpoint Project — Week 38: Event-Driven Order Processing Service",
+          "id": "week-41",
+          "title": "Checkpoint Project — Week 41: Event-Driven Order Processing Service",
           "tasks": [
             {
               "id": "cp-38-1",
@@ -706,7 +704,7 @@
           ]
         },
         {
-          "id": "weeks-39-40",
+          "id": "week-42",
           "title": "Weeks 39-40 — Kubernetes",
           "tasks": [
             {
@@ -732,7 +730,7 @@
           ]
         },
         {
-          "id": "weeks-41-42",
+          "id": "week-43",
           "title": "Weeks 41-42 — Spring Cloud Microservices",
           "tasks": [
             {
@@ -758,8 +756,8 @@
           ]
         },
         {
-          "id": "week-43",
-          "title": "Checkpoint Project — Week 43: E-commerce Microservices (ShopiOne rebuild, decomposed)",
+          "id": "week-44",
+          "title": "Checkpoint Project — Week 44: E-commerce Microservices (ShopiOne rebuild, decomposed)",
           "tasks": [
             {
               "id": "cp-43-1",
@@ -774,8 +772,8 @@
           ]
         },
         {
-          "id": "week-44",
-          "title": "Week 44 — Spring AI Integration",
+          "id": "week-45",
+          "title": "Week 45 — Spring AI Integration",
           "tasks": [
             {
               "id": "t-44-1",
@@ -795,7 +793,7 @@
           ]
         },
         {
-          "id": "weeks-45-46",
+          "id": "week-46",
           "title": "Weeks 45-46 — Remaining Production-Readiness Topics",
           "tasks": [
             {

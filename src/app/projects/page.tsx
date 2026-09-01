@@ -66,6 +66,17 @@ export default function ProjectsPage() {
     setExpandedTier(null);
   };
 
+  
+  const parseMarkdown = (text: string) => {
+    if (!text) return '';
+    return text
+      .replace(/\\n/g, '<br />')
+      .replace(/\n/g, '<br />')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/`(.*?)`/g, '<code style="background: var(--bg-hover); padding: 2px 4px; border-radius: 4px">$1</code>');
+  };
+
   const projects = roadmapData.phases.flatMap(phase => 
     phase.weeks.flatMap(week => 
       week.tasks.filter(t => t.type === "project").map(t => ({ ...t, phaseTitle: phase.title, weekTitle: week.title }))
@@ -112,9 +123,10 @@ export default function ProjectsPage() {
                         </h4>
                       </div>
                       
-                      <div className="text-muted leading-relaxed whitespace-pre-wrap mb-6">
-                        {(project as any).difficultyTiers[tier]}
-                      </div>
+                      <div 
+                        className="text-muted leading-relaxed mb-6"
+                        dangerouslySetInnerHTML={{ __html: parseMarkdown((project as any).difficultyTiers[tier]) }}
+                      />
 
                       {isSubmitted && !isExpanding ? (
                         <div className="p-4 rounded-lg bg-[var(--bg-hover)] border flex items-center justify-between" style={{ borderColor: 'var(--border)' }}>

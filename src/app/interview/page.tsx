@@ -25,7 +25,9 @@ const serializeQA = (items: { q: string; a: string }[]) =>
 const saveAndSync = (updatedNotes: any) => {
   localStorage.setItem("java-roadmap-notes", JSON.stringify(updatedNotes));
   const progress = JSON.parse(localStorage.getItem("java-roadmap-progress") || "{}");
-  fetch('/api/data', {
+  
+    
+    fetch('/api/data', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ progress, notes: updatedNotes })
@@ -48,7 +50,15 @@ export default function InterviewQuestions() {
   const [editA, setEditA] = useState("");
 
   useEffect(() => {
+    setMounted(true);
     
+    const saved = localStorage.getItem("java-roadmap-notes");
+    if (saved) {
+      try {
+        const p = JSON.parse(saved);
+        if (p.interview) setInterviewData(p.interview);
+      } catch(e) {}
+    }
     fetch('/api/data', { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {

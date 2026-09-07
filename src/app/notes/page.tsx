@@ -53,6 +53,7 @@ export default function NotesPage() {
   const [editContent, setEditContent] = useState("");
 
   useEffect(() => {
+    
     fetch('/api/data', { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
@@ -70,7 +71,7 @@ export default function NotesPage() {
             } catch (e) { console.error(e); }
           }
         }
-        setMounted(true);
+        
       })
       .catch(() => setMounted(true));
   }, []);

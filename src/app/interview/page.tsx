@@ -48,6 +48,7 @@ export default function InterviewQuestions() {
   const [editA, setEditA] = useState("");
 
   useEffect(() => {
+    
     fetch('/api/data', { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
@@ -61,7 +62,7 @@ export default function InterviewQuestions() {
             catch (e) { console.error(e); }
           }
         }
-        setMounted(true);
+        
       })
       .catch(() => setMounted(true));
   }, []);

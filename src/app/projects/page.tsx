@@ -18,7 +18,7 @@ export default function ProjectsPage() {
   const [formData, setFormData] = useState<Record<string, Submission>>({});
 
   useEffect(() => {
-    fetch("/api/data")
+        fetch('/api/data', { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         if (data.submissions && Object.keys(data.submissions).length > 0) {
@@ -36,7 +36,7 @@ export default function ProjectsPage() {
 
   const syncToServer = async (newSubmissions: SubmissionsData) => {
     try {
-      const res = await fetch("/api/data");
+      const res = await fetch('/api/data', { cache: 'no-store' });
       const current = await res.json();
       await fetch("/api/data", {
         method: "POST",
@@ -109,7 +109,7 @@ export default function ProjectsPage() {
                 <p className="text-lg text-muted mt-2">{project.description}</p>
                 {(project as any).capstoneDoc && (
                   <div className="mt-4">
-                    <a href={'/' + (project as any).capstoneDoc} target="_blank" rel="noreferrer" className="action-btn active inline-flex items-center text-sm" style={{ height: '36px' }}>
+                    <a href={'/' + ((project as any).capstoneDoc).replace('.md', '')} target="_blank" rel="noreferrer" className="action-btn active inline-flex items-center text-sm" style={{ height: '36px' }}>
                       <span className="mr-2">📄</span> View Full Capstone Specification
                     </a>
                   </div>

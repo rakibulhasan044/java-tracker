@@ -1,6 +1,7 @@
-export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { Pool } from 'pg';
+
+export const dynamic = 'force-dynamic';
 
 const pool = process.env.DATABASE_URL 
   ? new Pool({
@@ -66,9 +67,22 @@ export async function POST(request: Request) {
     await initDb();
     const data = await request.json();
     
+    const currentRes = await pool.query('SELECT progress, notes, submissions, qabank FROM user_data WHERE id = 1');
+    const current = currentRes.rows[0] || { progress: {}, notes: {}, submissions: {}, qabank: [] };
+    
+    const nextProgress = data.progress !== undefined ? data.progress : current.progress;
+    const nextNotes = data.notes !== undefined ? data.notes : current.notes;
+    const nextSubmissions = data.submissions !== undefined ? data.submissions : current.submissions;
+    const nextQabank = data.qabank !== undefined ? data.qabank : current.qabank;
+    
     await pool.query(
-      'UPDATE user_data SET progress = $1, notes = $2 WHERE id = 1',
-      [JSON.stringify(data.progress || {}), JSON.stringify(data.notes || {}), JSON.stringify(data.submissions || {}), JSON.stringify(data.qabank || [])]
+      'UPDATE user_data SET progress = $1, notes = $2, submissions = $3, qabank = $4 WHERE id = 1',
+      [
+        JSON.stringify(nextProgress || {}), 
+        JSON.stringify(nextNotes || {}), 
+        JSON.stringify(nextSubmissions || {}), 
+        JSON.stringify(nextQabank || [])
+      ]
     );
     
     return NextResponse.json({ success: true });

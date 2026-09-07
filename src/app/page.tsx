@@ -51,7 +51,8 @@ export default function TrackerDashboard() {
   const [dashboardTaskInputs, setDashboardTaskInputs] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    fetch("/api/data")
+    setMounted(true);
+    fetch('/api/data', { cache: 'no-store' })
       .then((res) => res.json())
       .then((data) => {
         let loadedProgress = false;
@@ -96,10 +97,10 @@ export default function TrackerDashboard() {
             }
           }
         }
-        setMounted(true);
+        
       })
       .catch(() => {
-        setMounted(true);
+        
       });
   }, []);
 

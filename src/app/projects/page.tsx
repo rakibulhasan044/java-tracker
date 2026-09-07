@@ -107,6 +107,13 @@ export default function ProjectsPage() {
                 <span className="text-xs font-bold text-muted uppercase tracking-wider">{project.phaseTitle}</span>
                 <h3 className="text-2xl font-bold mt-1">{project.weekTitle}</h3>
                 <p className="text-lg text-muted mt-2">{project.description}</p>
+                {(project as any).capstoneDoc && (
+                  <div className="mt-4">
+                    <a href={'/' + (project as any).capstoneDoc} target="_blank" rel="noreferrer" className="action-btn active inline-flex items-center text-sm" style={{ height: '36px' }}>
+                      <span className="mr-2">📄</span> View Full Capstone Specification
+                    </a>
+                  </div>
+                )}
               </div>
               <div className="p-6 flex flex-col gap-6">
                 {(['easy', 'medium', 'hard'] as const).map(tier => {

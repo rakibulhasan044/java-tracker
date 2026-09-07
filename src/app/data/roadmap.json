@@ -386,7 +386,7 @@
               "difficultyTiers": {
                 "easy": "Design the basic schema for Vehicles and Drivers.",
                 "medium": "Implement foreign keys, standard constraints, and Views.",
-                "hard": "**NEUROSOFTIC LOGISTICS & FREIGHT MANAGEMENT PLATFORM**\\n\\n**1. Executive Summary**\\nThis assignment defines a complete backend database architecture for a multi-sector freight management platform. The schema must support Vehicles, Consignments, Depots, Courier Integrations, and Payments without hard-coding status enums, using normalized tables.\\n\\n**2. Core Objectives**\\n- Build a highly normalized, reusable PostgreSQL schema.\\n- Utilize PostgreSQL-specific features (JSONB for courier API payloads, UUIDs for consignment tracking).\\n- Guarantee transactional integrity for payment allocations.\\n\\n**3. High-Level System Modules**\\n- **Auth/RBAC:** Roles, Permissions, Admin Users.\\n- **Fleet Management:** Vehicles, Maintenance Logs, Driver Assignments.\\n- **Consignments:** Parcels, Waybills, Routing, Delivery Status History.\\n- **Payments:** Ledger, Invoices, Due Collection.\\n\\n**4. Core Database Entities to Implement**\\n`User`, `Role`, `Vehicle`, `Depot`, `Consignment`, `ConsignmentEvent` (audit trail), `PaymentTransaction`.\\n\\n**5. Advanced PostgreSQL Requirements**\\n- Write a **PL/pgSQL Trigger** that automatically logs a record into `ConsignmentEvent` every time a consignment's status changes.\\n- Use a **Materialized View** to calculate daily revenue and outstanding dues per Depot, refreshable via a cron job/stored procedure.\\n- Implement a **JSONB** column in the `Consignment` table to store raw webhook payloads from external courier APIs (e.g., FedEx, Pathao).\\n- Create a **GIN Index** on the JSONB payload to allow fast querying of specific external tracking IDs."
+                "hard": "**NEUROSOFTIC LOGISTICS & FREIGHT MANAGEMENT PLATFORM**\n\n**1. Executive Summary**\nThis assignment defines a complete backend database architecture for a multi-sector freight management platform. The schema must support Vehicles, Consignments, Depots, Courier Integrations, and Payments without hard-coding status enums, using normalized tables.\n\n**2. Core Objectives**\n- Build a highly normalized, reusable PostgreSQL schema.\n- Utilize PostgreSQL-specific features (JSONB for courier API payloads, UUIDs for consignment tracking).\n- Guarantee transactional integrity for payment allocations.\n\n**3. High-Level System Modules**\n- **Auth/RBAC:** Roles, Permissions, Admin Users.\n- **Fleet Management:** Vehicles, Maintenance Logs, Driver Assignments.\n- **Consignments:** Parcels, Waybills, Routing, Delivery Status History.\n- **Payments:** Ledger, Invoices, Due Collection.\n\n**4. Core Database Entities to Implement**\n`User`, `Role`, `Vehicle`, `Depot`, `Consignment`, `ConsignmentEvent` (audit trail), `PaymentTransaction`.\n\n**5. Advanced PostgreSQL Requirements**\n- Write a **PL/pgSQL Trigger** that automatically logs a record into `ConsignmentEvent` every time a consignment's status changes.\n- Use a **Materialized View** to calculate daily revenue and outstanding dues per Depot, refreshable via a cron job/stored procedure.\n- Implement a **JSONB** column in the `Consignment` table to store raw webhook payloads from external courier APIs (e.g., FedEx, Pathao).\n- Create a **GIN Index** on the JSONB payload to allow fast querying of specific external tracking IDs."
               }
             }
           ]
@@ -593,17 +593,19 @@
         },
         {
           "id": "week-33",
-          "title": "Capstone Project — Week 37: Enterprise Commerce ERP",
+          "title": "Capstone Project — Weeks 33-35: Leaves Commerce Core Platform (15+ Day Build)",
           "tasks": [
             {
               "id": "cp-spring-capstone",
               "type": "project",
-              "description": "Capstone: Neurosoftic Leaves Commerce ERP Backend",
+              "description": "Production-grade modular-monolith Spring Boot commerce backend — RBAC, dynamic catalog/variants, cart-checkout-orders, inventory ledger, manual + gateway payments, audit logging. Minimum 15-day build. Full spec: capstones/leaves-commerce-core-mvp.md",
               "difficultyTiers": {
-                "easy": "Implement the basic Spring Boot REST API for Catalog and Product Management using Spring Data JPA.",
-                "medium": "Implement Authentication/Authorization using Spring Security & JWT, and the Order Management state machine.",
-                "hard": "**NEUROSOFTIC LEAVES COMMERCE (SPRING BOOT CAPSTONE)**\n\n**1. Executive Summary**\nBuild the complete backend for the Leaves Commerce Platform using a modular monolith architecture in Spring Boot. This includes Catalog, RBAC, Inventory Ledgers, Cart, Checkout, and Accounting modules.\n\n**2. Core Technical Requirements**\n- **Framework:** Spring Boot 3.x with Java 17+.\n- **Security:** Spring Security with JWT and strict method-level security (`@PreAuthorize`). Super Admin (Role 1) bypass logic.\n- **Database:** PostgreSQL with Spring Data JPA / Hibernate.\n- **Transactions:** Strict `@Transactional` boundaries for Order Confirmation and Double-Entry Accounting journal lines.\n\n**3. Required Modules to Implement**\n- **RBAC:** Dynamic permission-based access control. User vs Role vs Permission.\n- **Catalog:** Generic Attribute-based product variants (no hard-coded shoe_size columns).\n- **Inventory:** Immutable `stock_movements` ledger instead of overwriting quantities.\n- **Order Lifecycle:** DRAFT -> PENDING -> CONFIRMED -> SHIPPED -> DELIVERED.\n- **Accounting:** Double-entry bookkeeping. Posting `journal_lines` for sales and COGS.\n\n**4. Specific Spring Boot Challenges**\n- Implement a Custom Authentication Provider or Filter for manual Bank/bKash payment verification.\n- Handle the N+1 select problem in Hibernate when fetching Products and their dynamic Attributes.\n- Implement an idempotency key interceptor to prevent duplicate payment webhook processing.\n\n*Note: See the full FRS Document generated for complete architectural guidelines.*"
-              }
+                "easy": "Implement RBAC (roles/permissions/users), category-attribute-variant catalog model, and basic product CRUD with Spring Data JPA. See Milestone 1-2 in the linked spec.",
+                "medium": "Add cart, checkout, order lifecycle with state machine, stock reservation, manual payment verification, and global exception handling. See Milestone 3-5 in the linked spec.",
+                "hard": "Full spec in capstones/leaves-commerce-core-mvp.md — includes dynamic attribute-driven product variants, immutable stock_movements ledger, order snapshot pricing, JWT+RBAC with Super Admin bypass, payment provider adapter interface, audit logging, idempotent webhook handling, OpenAPI docs, Testcontainers integration tests, and Docker Compose deployment. This is the flagship resume project — allow 15-20 days."
+              },
+              "capstoneDoc": "capstones/leaves-commerce-core-mvp.md",
+              "estimatedDays": "15-20"
             }
           ]
         }
@@ -757,37 +759,74 @@
         },
         {
           "id": "week-44",
-          "title": "Checkpoint Project — Week 44: E-commerce Microservices (ShopiOne rebuild, decomposed)",
+          "title": "Capstone Project — Weeks 44-46: Leaves Commerce Microservices (Decomposed, 12+ Day Build)",
           "tasks": [
             {
               "id": "cp-43-1",
-              "description": "Split Week 31-33 monolith into auth-service, catalog-service, order-service. Wire via Eureka/Gateway, async via Kafka, deploy to K8s.",
+              "description": "Decompose the Week 33 Leaves Commerce monolith into auth-service, catalog-service, order-service, payment-service and notification-service. Wire via Eureka + Gateway, async via Kafka, resilience via Resilience4j, deploy to K8s. Full spec: capstones/leaves-commerce-microservices.md",
               "type": "project",
               "difficultyTiers": {
-                "easy": "1. Functional Requirements:\n- Build the core MVP logic based strictly on the current week's topics.\n- Implement basic CRUD or equivalent processing.",
-                "medium": "1. Advanced Requirements:\n- Handle all edge cases and input validation.\n- Enforce strict OOP principles or layered architecture.\n- Write basic Unit Tests.",
-                "hard": "1. Enterprise Requirements:\n- Optimize for high concurrency or large data sets using techniques learned so far.\n- Implement complex business rules and error recovery.\n- Achieve 80%+ test coverage."
-              }
+                "easy": "Split auth and catalog into two independently runnable services sharing one PostgreSQL instance; register both with Eureka.",
+                "medium": "Add order-service and payment-service, connect them via REST/OpenFeign, add an API Gateway with routing and centralized JWT validation.",
+                "hard": "Full spec in capstones/leaves-commerce-microservices.md — includes event-driven order-to-payment-to-notification flow via Kafka, distributed tracing, circuit breakers/fallbacks on inter-service calls, per-service databases, and Kubernetes manifests with ConfigMaps/Secrets for all five services."
+              },
+              "capstoneDoc": "capstones/leaves-commerce-microservices.md",
+              "estimatedDays": "12-15"
             }
           ]
         },
         {
           "id": "week-45",
-          "title": "Week 45 — Spring AI Integration",
+          "title": "Week 45-46 — Spring AI In Depth",
           "tasks": [
             {
               "id": "t-44-1",
-              "description": "Spring AI abstractions, Calling compatible APIs",
+              "description": "Spring AI core abstractions: ChatModel, ChatClient (fluent API), Advisors, and configuring model providers (OpenAI-compatible endpoints, Ollama for local models, Anthropic)",
               "type": "learning"
             },
             {
               "id": "t-44-2",
-              "description": "Streaming responses, prompt engineering in backend",
+              "description": "Prompt engineering in code: PromptTemplate, system vs user prompts, few-shot examples, and structured output via BeanOutputConverter / entity-mapped responses",
+              "type": "learning"
+            },
+            {
+              "id": "t-44-3",
+              "description": "Embedding models and vector stores: generating embeddings, and configuring pgvector, Redis Vector, or Chroma as a VectorStore bean",
+              "type": "learning"
+            },
+            {
+              "id": "t-44-4",
+              "description": "Document ETL pipeline: DocumentReader (PDF/text/JSON), TextSplitter/TokenTextSplitter for chunking, metadata enrichment, and DocumentWriter to persist embeddings",
+              "type": "learning"
+            },
+            {
+              "id": "t-44-5",
+              "description": "Retrieval-Augmented Generation (RAG) pattern: similarity search, QuestionAnswerAdvisor, re-ranking basics, and grounding responses in retrieved context",
+              "type": "learning"
+            },
+            {
+              "id": "t-44-6",
+              "description": "Function/Tool calling: exposing Java methods as callable tools so the model can invoke backend logic (e.g., order lookup, inventory check)",
+              "type": "learning"
+            },
+            {
+              "id": "t-44-7",
+              "description": "Chat memory and conversation state: MessageChatMemoryAdvisor, per-session history, and trimming/summarizing long conversations",
+              "type": "learning"
+            },
+            {
+              "id": "t-44-8",
+              "description": "Streaming responses (Flux<String>) to the client, and handling partial/incremental output in a REST controller",
+              "type": "learning"
+            },
+            {
+              "id": "t-44-9",
+              "description": "Observability, cost control and guardrails: logging token usage, rate limiting AI endpoints, input/output content moderation, and handling model timeouts/fallbacks gracefully",
               "type": "learning"
             },
             {
               "id": "p-44-1",
-              "description": "5 Build tasks (AI product descriptions, Structured output, Rate limiting API calls)",
+              "description": "12 Build tasks (ChatClient setup, structured output, embeddings + vector store, chunking pipeline, RAG query endpoint, tool calling, streaming endpoint, chat memory)",
               "type": "practice"
             }
           ]
@@ -814,6 +853,197 @@
             {
               "id": "p-45-1",
               "description": "10 Build tasks (Idempotency endpoints, Observability setup, Differentiator feature)",
+              "type": "practice"
+            }
+          ]
+        },
+        {
+          "id": "week-47",
+          "title": "Checkpoint Project — Weeks 47-48: AI-Powered Commerce Support Assistant (RAG, 12+ Day Build)",
+          "tasks": [
+            {
+              "id": "cp-46-1",
+              "description": "Production-grade Retrieval-Augmented-Generation support assistant on top of the Leaves Commerce catalog/orders data — ingests product docs and policies, answers customer questions grounded in real data, and can call backend tools (order status, stock check). Full spec: capstones/ai-rag-assistant.md",
+              "type": "project",
+              "capstoneDoc": "capstones/ai-rag-assistant.md",
+              "estimatedDays": "12-15",
+              "difficultyTiers": {
+                "easy": "Ingest a small set of FAQ/policy documents into a vector store and build a single /ask endpoint that retrieves top-k chunks and asks the model to answer using only that context.",
+                "medium": "Add streaming responses, per-user chat memory, and a tool the model can call to check real order status or product stock from the database.",
+                "hard": "Full spec in capstones/ai-rag-assistant.md — includes multi-source ingestion (PDF policies + DB-backed product catalog), chunking strategy tuning, hybrid retrieval, tool-calling into live services, conversation memory with summarization, streaming SSE endpoint, guardrails against prompt injection/off-topic queries, token/cost logging, and Dockerized deployment alongside the main commerce backend."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-6",
+      "title": "Phase 6: Cloud Deployment & Job Search",
+      "duration": "Weeks 49-54",
+      "weeks": [
+        {
+          "id": "week-48",
+          "title": "Week 49 — Cloud Deployment (AWS)",
+          "tasks": [
+            {
+              "id": "t-49-1",
+              "description": "AWS fundamentals: IAM users/roles/policies, VPC basics, security groups",
+              "type": "learning"
+            },
+            {
+              "id": "t-49-2",
+              "description": "EC2 deployment: launching an instance, deploying your Dockerized Spring Boot app, reverse proxy with Nginx",
+              "type": "learning"
+            },
+            {
+              "id": "t-49-3",
+              "description": "RDS: managed PostgreSQL setup, connecting your app, backups/snapshots",
+              "type": "learning"
+            },
+            {
+              "id": "t-49-4",
+              "description": "S3: object storage for media/invoices, bucket policies, signed URLs",
+              "type": "learning"
+            },
+            {
+              "id": "t-49-5",
+              "description": "Overview of ECS/EKS and when to move beyond a single EC2 instance",
+              "type": "learning"
+            },
+            {
+              "id": "p-49-1",
+              "description": "6 Build tasks (Deploy capstone to EC2, connect to RDS, S3 media upload, domain + HTTPS via Let's Encrypt)",
+              "type": "practice"
+            }
+          ]
+        },
+        {
+          "id": "week-49",
+          "title": "Week 50 — Production Security, Performance & Build Tooling",
+          "tasks": [
+            {
+              "id": "t-50-1",
+              "description": "OWASP API Security Top 10: broken auth, excessive data exposure, injection, rate limiting/BOLA",
+              "type": "learning"
+            },
+            {
+              "id": "t-50-2",
+              "description": "Dependency scanning (OWASP Dependency-Check or Snyk) and secrets management (AWS Secrets Manager / Vault basics)",
+              "type": "learning"
+            },
+            {
+              "id": "t-50-3",
+              "description": "Load and performance testing basics with k6 or JMeter: writing a simple load test, reading p95/p99 latency results",
+              "type": "learning"
+            },
+            {
+              "id": "t-50-4",
+              "description": "Gradle fundamentals: build.gradle vs pom.xml, dependencies, tasks, converting a Maven project to Gradle",
+              "type": "learning"
+            },
+            {
+              "id": "p-50-1",
+              "description": "6 Build tasks (Dependency scan report, secrets externalized, k6 load test on an endpoint, Gradle conversion of one service)",
+              "type": "practice"
+            }
+          ]
+        },
+        {
+          "id": "week-50",
+          "title": "Week 51 — Git Workflow & Collaboration Practice",
+          "tasks": [
+            {
+              "id": "t-51-1",
+              "description": "Branching strategies: trunk-based vs Git Flow, feature branches, conventional commits",
+              "type": "learning"
+            },
+            {
+              "id": "t-51-2",
+              "description": "Writing good PR descriptions, requesting/giving code review, resolving merge conflicts",
+              "type": "learning"
+            },
+            {
+              "id": "t-51-3",
+              "description": "Rebasing vs merging, squashing commits, protecting main branch with required checks",
+              "type": "learning"
+            },
+            {
+              "id": "p-51-1",
+              "description": "4 Practice tasks (open a self-PR with description template, simulate + resolve a merge conflict, rebase a feature branch)",
+              "type": "practice"
+            }
+          ]
+        },
+        {
+          "id": "week-51",
+          "title": "Weeks 52 — System Design Interview Practice",
+          "tasks": [
+            {
+              "id": "t-52-1",
+              "description": "Structured approach to system design interviews: requirements, back-of-envelope estimation, high-level design, deep dive, trade-offs",
+              "type": "learning"
+            },
+            {
+              "id": "t-52-2",
+              "description": "Classic problems to practice: URL shortener, rate limiter, notification system, chat application, distributed cache, news feed",
+              "type": "learning"
+            },
+            {
+              "id": "p-52-1",
+              "description": "6 Practice tasks — produce a one-page design doc + diagram for each classic problem above",
+              "type": "practice"
+            }
+          ]
+        },
+        {
+          "id": "week-52",
+          "title": "Week 53 — Resume, Portfolio & LinkedIn",
+          "tasks": [
+            {
+              "id": "t-53-1",
+              "description": "Writing a project-focused, metrics-driven resume for backend/Java roles (impact statements, not just tech lists)",
+              "type": "learning"
+            },
+            {
+              "id": "t-53-2",
+              "description": "Building a GitHub profile README and polishing capstone repo READMEs (architecture diagram, setup steps, screenshots/API docs link)",
+              "type": "learning"
+            },
+            {
+              "id": "t-53-3",
+              "description": "LinkedIn optimization: headline, About section, featured projects, skill endorsements",
+              "type": "learning"
+            },
+            {
+              "id": "p-53-1",
+              "description": "3 Deliverables: final resume draft, GitHub profile README, LinkedIn profile updated",
+              "type": "practice"
+            }
+          ]
+        },
+        {
+          "id": "week-53",
+          "title": "Week 54 — Mock Interviews & Job Search",
+          "tasks": [
+            {
+              "id": "t-54-1",
+              "description": "Technical mock interviews: live coding + system design + project deep-dive questions on your capstones",
+              "type": "learning"
+            },
+            {
+              "id": "t-54-2",
+              "description": "Behavioral/HR mock interviews: STAR method, common questions, salary negotiation basics",
+              "type": "learning"
+            },
+            {
+              "id": "t-54-3",
+              "description": "Job search strategy: tracking applications, tailoring resume per JD, using referrals, applying consistently",
+              "type": "learning"
+            },
+            {
+              "id": "p-54-1",
+              "description": "4 Practice tasks (2 technical mocks, 1 behavioral mock, set up an application tracker with at least 10 applications submitted)",
               "type": "practice"
             }
           ]

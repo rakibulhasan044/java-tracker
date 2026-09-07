@@ -48,7 +48,7 @@ export default function InterviewQuestions() {
   const [editA, setEditA] = useState("");
 
   useEffect(() => {
-    fetch('/api/data')
+    fetch('/api/data', { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         if (data.notes) {

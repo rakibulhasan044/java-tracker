@@ -6,8 +6,12 @@ import roadmapData from "../data/roadmap.json";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 
+const NOTE_SEP = '\n\n<!--NOTE_BREAK-->\n\n';
+
 const parseNotes = (text: string) => {
-  const blocks = text.split('\n\n---\n\n');
+  // Support both old separator (---) and new sentinel for backwards compat
+  const normalized = text.replace(/\n\n---\n\n/g, NOTE_SEP);
+  const blocks = normalized.split(NOTE_SEP);
   return blocks.map((block, i) => {
     const trimmed = block.trim();
     if (!trimmed) return null;
@@ -24,7 +28,7 @@ const serializeNotes = (items: { title: string; content: string }[]) =>
   items
     .filter(item => item.content.trim())
     .map(item => item.title && item.title !== `Note ${1}` ? `**${item.title}**\n${item.content}` : item.content)
-    .join('\n\n---\n\n');
+    .join(NOTE_SEP);
 
 const saveAndSync = (updatedNotes: any) => {
   localStorage.setItem("java-roadmap-notes", JSON.stringify(updatedNotes));

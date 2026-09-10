@@ -194,13 +194,13 @@ h1, h2, h3, h4, h5, h6 {
 .checkbox-wrapper, .qa-wrapper, .note-wrapper {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
-  padding: 1.15rem;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
   background-color: var(--surface);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.3rem;
 }
 
 .checkbox-wrapper:hover, .qa-wrapper:hover, .note-wrapper:hover {
@@ -424,3 +424,24 @@ h1, h2, h3, h4, h5, h6 {
 .markdown-container th, .markdown-container td { border: 1px solid var(--border); padding: 0.75rem; text-align: left; }
 .markdown-container th { background-color: var(--bg-hover); font-weight: bold; }
 .markdown-container strong { font-weight: bold; color: var(--primary); }
+
+/* ── Toast ─────────────────────────────────────────────────────────── */
+.toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; pointer-events: none; }
+.toast { display: flex; align-items: center; gap: 0.6rem; padding: 0.75rem 1.1rem; border-radius: 10px; font-size: 0.92rem; font-weight: 500; box-shadow: 0 4px 24px rgba(0,0,0,0.25); pointer-events: auto; animation: toast-in 0.25s ease; }
+.toast.success { background: #052e16; border: 1px solid #16a34a; color: #4ade80; }
+.toast.error   { background: #2d0000; border: 1px solid #dc2626; color: #f87171; }
+@keyframes toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── Confirm Delete Modal ───────────────────────────────────────────── */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(2px); z-index: 10000; display: flex; align-items: center; justify-content: center; animation: fade-in 0.15s ease; }
+.modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; max-width: 420px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.4); animation: modal-in 0.2s ease; }
+.modal-icon { width: 44px; height: 44px; border-radius: 50%; background: rgba(239,68,68,0.12); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 1.3rem; }
+.modal-title { font-size: 1.1rem; font-weight: 700; color: var(--foreground); margin-bottom: 0.4rem; }
+.modal-body { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5; }
+.modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+.modal-btn-cancel { padding: 0.55rem 1.2rem; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--foreground); font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: background 0.15s; }
+.modal-btn-cancel:hover { background: var(--bg-hover); }
+.modal-btn-delete { padding: 0.55rem 1.2rem; border-radius: 8px; border: none; background: #dc2626; color: #fff; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: background 0.15s; }
+.modal-btn-delete:hover { background: #b91c1c; }
+@keyframes modal-in { from { opacity:0; transform: scale(0.95) translateY(8px); } to { opacity:1; transform: scale(1) translateY(0); } }
+@keyframes fade-in { from { opacity:0; } to { opacity:1; } }

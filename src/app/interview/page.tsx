@@ -48,6 +48,9 @@ export default function InterviewQuestions() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editQ, setEditQ] = useState("");
   const [editA, setEditA] = useState("");
+  const [editWeekId, setEditWeekId] = useState<string | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<{ weekId: string; qaId: string } | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -77,6 +80,18 @@ export default function InterviewQuestions() {
       .catch(() => setMounted(true));
   }, []);
 
+  const confirmDelete = () => {
+    if (!deleteTarget) return;
+    handleDelete(deleteTarget.weekId, deleteTarget.qaId);
+    setDeleteTarget(null);
+    showToast('✓ Question deleted!');
+  };
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2500);
+  };
+
   const updateWeekQAs = (weekId: string, items: { q: string; a: string }[]) => {
     const newText = serializeQA(items);
     const updated = { ...interviewData, [weekId]: newText };
@@ -97,6 +112,7 @@ export default function InterviewQuestions() {
     saveAndSync({ ...fullNotes, interview: updated });
     setIsAddingQA(false);
     setNewQuestion(""); setNewAnswer("");
+    showToast('✓ Question saved!');
   };
 
   const handleDelete = (weekId: string, qaId: string) => {
@@ -110,6 +126,7 @@ export default function InterviewQuestions() {
     );
     updateWeekQAs(weekId, items);
     setEditingId(null);
+    showToast('✓ Question updated!');
   };
 
   if (!mounted) return null;
@@ -189,7 +206,7 @@ export default function InterviewQuestions() {
       </div>
 
       {/* QA List */}
-      <div className="flex flex-col gap-8 animate-in">
+      <div className="flex flex-col gap-4 animate-in">
         {weeksWithQs.length === 0 && (
           <div className="card text-center p-12 text-muted text-lg">
             No interview questions saved for {activePhase?.title} yet.<br /><br />Add them here or on the dashboard!
@@ -199,26 +216,14 @@ export default function InterviewQuestions() {
           const qaList = parseQA(interviewData[week.id]);
           return (
             <div key={week.id} className="card">
-              <h3 className="text-2xl font-semibold mb-6 border-b pb-4" style={{ borderColor: 'var(--border)' }}>{week.title}</h3>
-              <div className="flex flex-col gap-2">
-                {qaList.map(item => {
+              <h3 className="text-lg font-semibold mb-3 border-b pb-3" style={{ borderColor: 'var(--border)' }}>{week.title}</h3>
+              <div className="flex flex-col gap-1">{qaList.map(item => {
                   const qaId = `${week.id}-${item.id}`;
                   const isExpanded = expandedQA.has(qaId);
                   const isEditing = editingId === qaId;
                   return (
                     <div key={qaId} className={`qa-wrapper ${isExpanded ? 'expanded' : ''} flex-col !items-stretch`}>
-                      {isEditing ? (
-                        <div className="flex flex-col gap-3 animate-in w-full">
-                          <input className="textarea-input" style={{ minHeight: 'auto', padding: '0.6rem 0.75rem', width: '100%', fontWeight: 600, backgroundColor: 'var(--surface)' }}
-                            value={editQ} onChange={e => setEditQ(e.target.value)} placeholder="Question..." />
-                          <textarea className="textarea-input" style={{ minHeight: '120px', backgroundColor: 'var(--surface)' }}
-                            value={editA} onChange={e => setEditA(e.target.value)} placeholder="Answer..." />
-                          <div className="flex gap-3">
-                            <button className="action-btn action-btn-interview active" onClick={() => handleEditSave(week.id, item.id)} style={{ padding: '0.5rem 1.2rem', borderRadius: '6px' }}>Save</button>
-                            <button className="action-btn" onClick={() => setEditingId(null)} style={{ padding: '0.5rem 1.2rem', borderRadius: '6px' }}>Cancel</button>
-                          </div>
-                        </div>
-                      ) : (
+                      {false ? null : (
                         <>
                           <div className="flex items-center w-full gap-2">
                             <button className="text-left font-medium flex items-center flex-1 transition-colors"
@@ -227,11 +232,11 @@ export default function InterviewQuestions() {
                               <span className="text-muted ml-2 text-sm flex-shrink-0">{isExpanded ? '▲' : '▼'}</span>
                             </button>
                             <button
-                              onClick={() => { setEditingId(qaId); setEditQ(item.q); setEditA(item.a); setExpandedQA(prev => { const n = new Set(prev); n.add(qaId); return n; }); }}
+                              onClick={() => { setEditingId(item.id); setEditWeekId(week.id); setEditQ(item.q); setEditA(item.a); }}
                               className="action-btn" title="Edit"
                               style={{ padding: '0.3rem 0.6rem', fontSize: '0.85rem', flexShrink: 0, fontWeight: 600 }}>Edit</button>
                             <button
-                              onClick={() => { if (confirm('Delete this question?')) handleDelete(week.id, item.id); }}
+                              onClick={() => setDeleteTarget({ weekId: week.id, qaId: item.id })}
                               className="action-btn" title="Delete"
                               style={{ padding: '0.3rem 0.6rem', fontSize: '0.85rem', flexShrink: 0, color: '#ef4444', fontWeight: 600 }}>Delete</button>
                           </div>
@@ -250,6 +255,59 @@ export default function InterviewQuestions() {
           );
         })}
       </div>
+
+      {/* Edit Q&A Modal */}
+      {editingId && editWeekId && (
+        <div className="modal-backdrop" onClick={() => { setEditingId(null); setEditWeekId(null); }}>
+          <div className="modal-box" style={{ maxWidth: '680px', width: '94vw' }} onClick={e => e.stopPropagation()}>
+            <p className="modal-title" style={{ marginBottom: '1rem' }}>✏️ Edit Question</p>
+            <input
+              className="textarea-input"
+              style={{ minHeight: 'auto', padding: '0.6rem 0.85rem', width: '100%', fontWeight: 600, backgroundColor: 'var(--surface)', marginBottom: '0.75rem' }}
+              placeholder="Question..."
+              value={editQ}
+              onChange={e => setEditQ(e.target.value)}
+              autoFocus
+            />
+            <textarea
+              className="textarea-input"
+              style={{ minHeight: '48vh', width: '100%', backgroundColor: 'var(--surface)', resize: 'vertical', fontFamily: 'inherit', fontSize: '0.93rem', lineHeight: 1.7, padding: '0.75rem' }}
+              placeholder="Answer (markdown supported)..."
+              value={editA}
+              onChange={e => setEditA(e.target.value)}
+            />
+            <div className="modal-actions" style={{ marginTop: '1rem' }}>
+              <button className="modal-btn-cancel" onClick={() => { setEditingId(null); setEditWeekId(null); }}>Cancel</button>
+              <button
+                className="action-btn action-btn-interview active"
+                style={{ padding: '0.55rem 1.2rem', borderRadius: '8px', fontWeight: 600, fontSize: '0.88rem' }}
+                onClick={() => { handleEditSave(editWeekId, editingId); setEditWeekId(null); }}
+              >Save</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Confirm Delete Modal */}
+      {deleteTarget && (
+        <div className="modal-backdrop" onClick={() => setDeleteTarget(null)}>
+          <div className="modal-box" onClick={e => e.stopPropagation()}>
+            <div className="modal-icon">🗑️</div>
+            <p className="modal-title">Delete Question?</p>
+            <p className="modal-body">This Q&A entry will be permanently deleted and cannot be undone.</p>
+            <div className="modal-actions">
+              <button className="modal-btn-cancel" onClick={() => setDeleteTarget(null)}>Cancel</button>
+              <button className="modal-btn-delete" onClick={confirmDelete}>Delete</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {toast && (
+        <div className="toast-container">
+          <div className="toast success">{toast}</div>
+        </div>
+      )}
     </div>
   );
 }

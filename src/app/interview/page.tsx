@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import roadmapData from "../data/roadmap.json";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const parseQA = (text: string) => {
   const parts = text.split(/\n\n(?=\*\*Q:)/);
@@ -242,7 +243,7 @@ export default function InterviewQuestions() {
                           </div>
                           {isExpanded && (
                             <div className="mt-3 animate-in markdown-body" style={{ paddingLeft: '0.25rem' }}>
-                              <ReactMarkdown>{item.a}</ReactMarkdown>
+                              <ReactMarkdown remarkPlugins={[remarkGfm]}>{item.a}</ReactMarkdown>
                             </div>
                           )}
                         </>

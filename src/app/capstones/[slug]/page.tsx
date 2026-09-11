@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import Link from 'next/link';
 
 export default async function CapstonePage(props: { params: Promise<{ slug: string }> }) {
@@ -26,7 +27,7 @@ export default async function CapstonePage(props: { params: Promise<{ slug: stri
       </Link>
       <div className="card p-8 bg-[var(--surface)] border rounded-xl shadow-lg" style={{ borderColor: 'var(--border)' }}>
         <div className="markdown-container text-[var(--foreground)]">
-          <ReactMarkdown>{content}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
         </div>
       </div>
     </div>

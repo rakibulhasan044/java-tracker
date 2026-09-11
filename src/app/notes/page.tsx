@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import roadmapData from "../data/roadmap.json";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface NoteItem {
   id: string;
@@ -337,7 +338,7 @@ export default function NotesPage() {
                           </div>
                           {isOpen && (
                             <div className="mt-3 animate-in markdown-body" style={{ paddingLeft: "1.25rem" }}>
-                              <ReactMarkdown>{note.content}</ReactMarkdown>
+                              <ReactMarkdown remarkPlugins={[remarkGfm]}>{note.content}</ReactMarkdown>
                             </div>
                           )}
                         </>
@@ -383,7 +384,7 @@ export default function NotesPage() {
                         </div>
                         {isOpen && (
                           <div className="mt-3 animate-in markdown-body" style={{ paddingLeft: "1.25rem" }}>
-                            <ReactMarkdown>{tasksData[task.id]}</ReactMarkdown>
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>{tasksData[task.id]}</ReactMarkdown>
                           </div>
                         )}
                       </>
